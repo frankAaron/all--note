@@ -166,3 +166,11 @@ HTML是一种标签语言,标签是用< >包裹的
 - 元素：表单标签，表单域，表单按钮 通过input(单标签)输入框
 
   ![样例](C:\Users\zhume\Pictures\Screenshots\屏幕截图 2023-12-21 205835.png)
+
+- 文本框：文本域，
+
+- 用户名：input
+
+- 密码：input，type="password"
+- 提交文件，submit，
+- value改变文本
