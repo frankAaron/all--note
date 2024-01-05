@@ -79,3 +79,13 @@
 - text-decoration  文本修饰 underline(下划线)  overline(上划线)  line-through(删除线)
 - text-transform    文本大小写  captialize(每个单词开头大写)   uppercase(全部大写)  lowercase（全部小写）
 - text-indent           首行缩进  两个字30px
+
+## 9.表格属性
+
+- border  边框大小，solid实线，边框颜色
+- border-collapse : collapse  折叠(单)边框
+- 设置高度宽度
+- 文字对齐  ：默认左中对其对齐，使用  text-align  水平，vertical-align: top/center/bottom
+- 表格填充   ：padding   填充空白
+- 表格颜色
+
