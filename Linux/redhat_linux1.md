@@ -16,12 +16,27 @@ podman
 tfs文件系统
 信创产业  开源 国家
 
-
+## ip
 
 学Linux要互联网    ip路由，网址转换（nat），VPN
 手机端：shell
 Windows上：   ip config /all
 ip a （ip a | grep inet） 看见本机ip地址    去ping（敲击）目标
 icmp     专门测试ip端
-ttl          存活时间
-ip地址，  32位二进制， 8位一段换为十进制      www.whitehouse.gov
+ttl          存活时间       www.whitehouse.gov
+ip地址，  32位二进制， 8位一段换为十进制，一共四段。icanm负责ip协调，网络号＋主机号
+
+子网掩码分ip网络位和主机位
+
+su -可以切换到开发者模式
+
+可以自己配置网号IP address add/delete dev br0   
+
+网关类似于门 
+
+dns服务器
+
+dscp动态主机配置服务       
+
+路由器:中转站，类似于古代驿站
+
