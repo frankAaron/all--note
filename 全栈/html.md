@@ -207,3 +207,125 @@ HTML是一种标签语言,标签是用< >包裹的
 - 常见行内元素的有     a,b,em,i,span,strong     文本标签
 - 块级元素，能识别宽高：button，img，
 
+# 考试
+
+&nbsp;&nbsp; &nbsp;&nbsp 空格字符加；
+
+pre标签格式化文本
+
+div标签
+
+ul li两个标签嵌套
+
+table th tr td
+
+input  type（test password radio checkbox submit reset）  value  
+
+textarea
+
+text-align 属性规定元素中的文本的水平对齐方式。常用的值有：
+
+-   left ：把文本排列到左边。默认值：由浏览器决定。
+-   right ：把文本排列到右边。
+-   center ：把文本排列到中间。
+-   justify ：实现两端对齐文本效果。
+-   inherit ：规定应该从父元素继承 text-align 属性的值
+
+letter-spacing   
+
+-   normal：默认。规定字符间没有额外的空间，相当于值为 0。
+-   length：定义字符间的固定空间（允许使用负值），如12px、-5px等
+-   inherit：规定应该从父元素继承 letter-spacing 属性的值
+
+line-height 属性设置行间的距离（行高）。不允许使用负值。常用的值有：
+
+-   normal：默认，设置合理的行间距。
+-   number：设置数字，此数字会与当前的字体尺寸相乘来设置行间距。
+-   length：设置固定的行间距。
+-   % ：基于当前字体尺寸的百分比行间距。
+-   inherit：规定应该从父元素继承 line-height 属性的值
+
+text-decoration 属性规定添加到文本的修饰，下划线、上划线、删除线等。
+
+text-decoration 属性是以下三种属性的简写：
+
+-   text-decoration-line
+-   text-decoration-color
+-   text-decoration-style
+
+其中，text-decoration-line 属性常用值有：
+
+-   none：默认。定义标准的文本。
+-   underline：定义文本下的一条线。
+-   overline：定义文本上的一条线，也用作删除线。
+-   line-through：定义穿过文本下的一条线。
+-   blink：定义闪烁的文本。IE、Chrome 或 Safari 不支持 “blink” 属性值。
+-   inherit：规定应该从父元素继承 text-decoration 属性的值。任何的版本的 Internet Explorer （包括 IE8）都不支持属性值 “inherit”
+
+CSS 字体属性定义文本的字体系列、大小、加粗、风格（如斜体）和变形（如小型大写字母）。常用属性有：
+
+-   font-family：字体系列，在 CSS 中，有两种不同类型的字体系列名称：`通用字体系列` - 拥有相似外观的字体系统组合（比如 “Serif” 或 “Monospace”）；`特定字体系列` - 具体的字体系列（比如 “Times” 或 “Courier”）。
+-   font-size：字号，有三种方式：`px`、`em`和`百分比`。
+-   font-style：常用于规定斜体文本。该属性有三个值：`normal` - 文本正常显示；`italic` - 文本斜体显示；`oblique` - 文本倾斜显示。通常情况下，italic 和 oblique 文本在 web 浏览器中看上去完全一样。
+-   font-weight：将文本设置为粗体。该属性常用值有：`normal` -正常字体；`bold` -粗体；`bolder` -比所继承值更粗的一个字体加粗；`lighter` -比所继承值更细的一个字体加细。
+
+background-image：规定要使用的背景图像。常用值为：url(‘URL’)图片链接、none不显示图像。
+
+background-repeat：规定如何重复背景图像。repeat-x 和 repeat-y 分别导致图像只在水平或垂直方向上重复，no-repeat 则不允许图像在任何方向上平铺。
+
+background-attachment：规定背景图像是否固定或者随着页面的其余部分滚动。默认滚动，可设置为 fixed 不滚动。
+
+background-position：规定背景图像的位置。常用值为：关键字（top、bottom、left、right 和 center）、长度值（如 100px 或 5cm）、百分比（比较复杂，很少使用）。
+
+table 标签代表表格，常用的CSS属性有：
+
+- width：宽，可以是值，也可以是百分比。
+- height：高，可以是值，也可以是百分比。
+- border：属性设置表格边框，可以为table、th、td设置，属性有border-width（如10px）、border-style（如solid）、border-color（如blue）。border设置的是双线条边框，折叠为单一边框可用border-collapse。
+- border-collapse：属性设置是否将表格边框折叠为单一边框；折叠则设置值为collapse。
+- text-align：属性设置表格中文本水平对齐方式。比如左对齐、右对齐或者居中
+- vertical-align：属性设置表格中文本垂直对齐方式。比如顶部对齐、底部对齐或居中对齐
+- padding：属性控制表格中内容与边框的距离，需为 td 和 th 元素设置。
+
+@font-face规则，可以实现定义您喜欢的字体（前提是字体需放到服务器上）。必须有的值为：
+
+- font-family：必需的。定义字体的名称。
+- src：必需的。定义该字体下载的网址。
+
+定义字体语法：
+
+```
+@font-face
+{
+font-family:字体名称
+src: url('网址'),
+}
+```
+
+transition 属性设置元素当过渡效果，是一个简写属性，用于设置四个过渡属性：
+
+- transition-property：规定设置过渡效果的 CSS 属性的名称。
+- transition-duration：规定完成过渡效果需要多少秒或毫秒。
+- transition-timing-function：规定速度效果的速度曲线。
+- transition-delay：定义过渡效果何时开始。
+
+语法：`transition: property duration timing-function delay;`
+
+transform 属性还可以用来实现3D效果。常用值有：
+
+- scale3d(x,y,z)：定义 3D 缩放转换。
+- scaleX(x)：定义 3D 缩放转换，通过给定一个 X 轴的值。
+- scaleY(y)：定义 3D 缩放转换，通过给定一个 Y 轴的值。
+- scaleZ(z)：定义 3D 缩放转换，通过给定一个 Z 轴的值。
+- rotate3d(x,y,z,angle)：定义 3D 旋转。
+- rotateX(angle)：定义沿 X 轴的 3D 旋转。
+- rotateY(angle)：定义沿 Y 轴的 3D 旋转。
+- rotateZ(angle)：定义沿 Z 轴的 3D 旋转。
+- perspective(n)：定义 3D 转换元素的透视视图。
+
+position 属性指定一个元素（静态的，相对的，绝对或固定）的定位方法的类型。常用值有：
+
+- absolute：生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。
+- fixed：生成固定定位的元素，相对于浏览器窗口进行定位。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。
+- relative：生成相对定位的元素，相对于其正常位置进行定位。因此，“left:20” 会向元素的 LEFT 位置添加 20 像素。
+- static：默认值。没有定位。
