@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+	<!-- 引入样式 -->
+    <link href="demo02.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="app">
+		<a href="http://www.baidu.com" @click.prevent="test1">去百度</a>
+		<br>
+		<br>
+		<div style="width:200px;height:200px;background: yellow;" @click="test2">
+			outer
+			<div style="width:100px;height:100px;margin-top: 30px;
+						margin-left: 50px;background: green;" 
+				 @click.stop="test3">
+			    inner
+			</div>
+		</div>
+	
+		<br>
+		<button @click.once="test4">只响应一次点击</button>
+	</div>
+
+
+
+    <script>
+        // 创建Vue对象，挂载#app这个div标签
+		var app = new Vue({
+			el:"#app",
+			data:{
+				num: 2
+			},
+			methods: {
+				test1 () {
+					alert('响应点击链接')
+				},
+				test2 () {
+					alert('点击outer')
+				},
+				test3 () {
+					alert('点击inner')
+				},
+				test4 () {
+					alert('响应点击')
+				}
+				},
+		});
+
+
+    </script>
+</body>
+</html>

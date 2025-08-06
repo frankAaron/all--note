@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>创建和删除标签</title>
+    </head>
+    <body>
+        <ul id="city">
+            <li id="bj">北京</li>
+            <li id="sh">上海</li>
+            <li id="sz">深圳</li>
+            <li id="gz">广州</li>
+        </ul>
+        <script>
+/*            //目标1: 在城市列表的最后添加一个子标签 <li id="cs">长沙</li>
+            //1. 创建一个li标签  <li></li>
+            var liElement = document.createElement("li");
+            //2. 给创建的li标签设置id属性和文本 <li id="cs">长沙</li>
+            liElement.id = "cs";
+            liElement.innerText = "长沙";
+*/            //3. 将创建的li标签添加到城市列表中（ul）
+            var cityUl = document.getElementById("city");
+
+            //父.appendChild(子)将子标签添加到父标签的最后面
+            //cityUl.appendChild(liElement);
+
+			
+            //目标2:在城市列表的深圳之前添加一个子标签 <li id="cs">长沙</li>
+            //获取到深圳这个标签
+            //var szElement = document.getElementById("sz");
+            //父.insertBefore(新标签,参照标签)
+            //cityUl.insertBefore(liElement,szElement);
+
+            //目标3: 在城市列表中添加一个子标签替换深圳 <li id="cs">长沙</li>
+            //父.replaceChild(新标签,被替换的标签)
+            //cityUl.replaceChild(liElement,szElement);
+
+            //目标4: 在城市列表中删除深圳
+            //szElement.remove();
+
+            //目标5: 清除城市列表中的所有城市,保留城市列表标签ul
+            cityUl.innerHTML = "";
+			
+        </script>
+    </body>
+</html>

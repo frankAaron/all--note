@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>鼠标滑动</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/demo01.css">
+
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="div_container">
+        <div id="div_fruit_list">
+            <table id="tbl_fruit">
+                <tr>
+                    <td>名称</td>
+                    <td>单价</td>
+                    <td>数量</td>
+                    <td>小计</td>
+                    <td>操作</td>
+				</tr>	
+                <tr v-for="(fruit,index) in fruitList" @mouseover="changeBgColor(1)" @mouseout="changeBgColor(2)">
+                    <td>{{fruit.name}}</td>
+                    <td v-if="fruit.flag" class="numcss">{{fruit.num}}</td>
+                    <td v-else  class="numcss">
+                        <input type="text" v-model="fruit.num"  size="4" >
+                    </td>
+                    <td>{{fruit.price}}</td>
+                    <td>{{fruit.num*fruit.price}}</td>
+                    <td><img src="imgs/del.jpg" class="delImg" ></td>
+                </tr>
+
+                <tr>
+                    <td>总计</td>
+                    <td colspan="4">{{sum}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#div_container",
+        data:{
+            fruitList:[
+                {name:"苹果",num:5,price:20,flag:true},
+                {name:"香蕉",num:7,price:10,flag:true},
+                {name:"梨儿",num:3,price:20,flag:true},
+                {name:"西瓜",num:10,price:20,flag:true}
+            ],
+            sum:0
+        },
+        methods:{
+            //1.鼠标滑动
+            changeBgColor:function (i){
+                if(i==1){
+                    event.target.parentElement.classList.add("hover");
+                }else{
+                    event.target.parentElement.classList.remove("hover");
+                }
+            },
+
+            //计算总计
+            result:function (){
+                var sum=0;
+                for (let i = 0; i < this.fruitList.length; i++) {
+                    sum+=this.fruitList[i].num*this.fruitList[i].price;
+                }
+                this.sum=sum;
+            }
+
+        },
+        //刷新总计
+        created:function (){
+            this.result();
+        },
+
+
+    })
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+		<!-- v-bind:属性名 效果是从Vue对象渲染到页面 -->
+		<!-- v-model:属性名 效果不仅是从Vue对象渲染到页面，而且能够在页面上数据修改后反向修改Vue对象中的数据属性 -->
+		<input type="text" v-model:value="msg" />
+	
+		<p>{{msg}}</p>
+	</div>
+
+
+    <script>
+        // 创建Vue对象，挂载#app这个div标签
+		var app = new Vue({
+			el:"#app",
+			data:{
+				msg:"太阳当空照"
+			}
+		});
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+		<h2>num: {{num}}</h2>
+		<!--<button>测试event1(点击提示按钮的文本)</button><br><br>
+		<button>测试event2(点击提示指定的特定数据)</button><br><br>
+		<button>测试event4(点击num增加3)</button><br><br>
+		<button>测试event3(点击提示按钮的文本和指定的特定数据)</button><br><br>-->
+		
+		<button @click="handleClick1">测试event1(点击提示按钮的文本)</button>
+		
+	</div>
+
+    <script>
+	
+    /*
+	//初始代码
+	var app = new Vue({
+		el:"#app",
+		data:{
+			num: 2
+		}
+	});
+	*/
+	var app = new Vue({
+		el:"#app",
+		data:{
+			num: 2
+		},
+		methods: {
+			handleClick1 (event) {
+				alert(event.target.innerHTML)
+		}
+}
+
+		
+	});
+    </script>
+</body>
+</html>

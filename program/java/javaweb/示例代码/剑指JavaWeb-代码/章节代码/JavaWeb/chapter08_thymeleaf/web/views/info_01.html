@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>info</title>
+</head>
+<body>
+        <h1>个人信息</h1>
+        <!--
+            姓名和爱好是从请求参数中获取到的
+            年龄是从请求域中获取到的
+        -->
+        姓名：<span th:text="${param.name}"></span><br/>
+        年龄：<span th:text="${age}"></span><br/>
+        爱好：<span th:text="${param.hobby[0]}"></span>
+              <span th:text="${param.hobby[1]}"></span>
+</body>
+</html>

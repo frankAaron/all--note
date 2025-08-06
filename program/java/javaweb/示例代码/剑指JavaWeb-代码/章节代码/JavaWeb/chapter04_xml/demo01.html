@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, 
+initial-scale=1.0" />
+    <title>JavaScript编写位置</title>
+    <style>
+      #btn {
+        width: 200px;
+        height: 40px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn">点击按钮</button>
+    <script>
+      //获取id是btn的元素
+      let btn = document.querySelector("#btn");
+
+      // 给元素监听事件
+      btn.addEventListener("click", function () {
+        console.log("Hello World");
+      });
+    </script>
+  </body>
+</html>

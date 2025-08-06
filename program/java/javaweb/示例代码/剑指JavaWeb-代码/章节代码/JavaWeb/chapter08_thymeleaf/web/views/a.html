@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>A页面</title>
+</head>
+<body>
+        <!--引入head.html中的头部信息内容-->
+        <!--将内容进行包含-->
+        <div id="myHead01" th:include="common::headHtml"></div>
+        <!--将整体内容进行替换-->
+        <div id="myHead02" th:replace="common::headHtml"></div>
+        <!--将整体内容进行插入添加-->
+        <div id="myHead03"  th:insert="common::headHtml"></div>
+        <div>A页面的主题内容</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击事件</title>
+</head>
+<body>
+	<input type="button" value="按钮1" onclick="fn1()">
+	<input type="button" value="按钮2" id="btn">
+    
+	<script>
+        //当点击的时候要调用的函数
+        function fn1() {
+			console.log("通过普通函数方式绑定的点击事件");
+		}
+
+		//给另外一个按钮，绑定点击事件:
+		//1.先根据id获取标签
+		var btn = document.getElementById("btn");
+		//2. 设置btn的onclick属性(绑定事件)
+		//绑定命名函数
+		//btn.onclick = fn1
+
+		//绑定匿名函数
+		btn.onclick = function () {
+			console.log("通过匿名函数方式绑定的点击事件");
+		}
+	</script>
+</body>
+</html>

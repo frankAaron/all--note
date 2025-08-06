@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <!-- 使用{{}}格式，指定要被渲染的数据 -->
+	<div id="app">{{message}}</div>
+
+
+
+    <script>
+        // 1.创建一个JSON对象，作为new Vue时要使用的参数
+		var argumentJson = {
+			// el用于指定Vue对象要关联的HTML元素。el是element的缩写
+			// 通过id属性值指定HTML元素时，语法格式是：#id
+			el:"#app",
+			
+			// data属性设置了Vue对象中保存的数据
+			data:{
+				message:"Hello Vue!"
+			}
+		};
+
+		// 2.创建Vue对象，传入上面准备好的参数
+		var app = new Vue(argumentJson);
+
+    </script>
+</body>
+</html>

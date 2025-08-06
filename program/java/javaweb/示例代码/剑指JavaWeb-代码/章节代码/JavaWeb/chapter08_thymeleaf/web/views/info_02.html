@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>结果页面</title>
+</head>
+<body>
+        <h1>常用内置对象使用</h1>
+        <!--#dates 对时间进行格式化-->
+        请求域中的时间：<span th:text="${#dates.format(date,'yyyy-MM-dd HH:mm:ss')}"></span><br/><br/>
+
+        请求域中的字符串操作：<br/>
+            <!--#strings 可以对字符串进行处理，类似于javaSE阶段学习的String类的常用方法，此处只演示一小部分-->
+            字符串的长度：<span th:text="${#strings.length(str)}"></span><br/>
+            字符串是否以http开头：<span th:text="${#strings.startsWith(str,'http')}"></span><br/>
+            字符串是否包含atguigu：<span th:text="${#strings.contains(str,'atguigu')}"></span><br/><br/>
+        <!-- #lists 对list集合进行操作-->
+        请求域中的List集合操作：<br/>
+            list集合是否有值：<span th:text="${#lists.isEmpty(list)}"></span><br/>
+            list集合的长度：<span th:text="${#lists.size(list)}"></span><br/>
+            list集合是否包含java：<span th:text="${#lists.contains(list,'java')}"></span><br/>
+</body>
+</html>

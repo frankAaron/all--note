@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+		<p>尊姓：{{firstName}}</p>
+		<p>大名：{{lastName}}</p>
+		尊姓：<input type="text" v-model="firstName" /><br/>
+		大名：<input type="text" v-model="lastName" /><br/>
+		<p>全名：{{fullName}}</p>
+	</div>
+
+
+
+    <script>
+        //创建Vue对象，挂载#app这个div标签
+		var app = new Vue({
+			el:"#app",
+			data:{
+				firstName:"jim",
+				lastName:"green",
+				fullName:"jim green"
+			},
+			watch:{
+				firstName:function(inputValue){
+					this.fullName = inputValue + " " + this.lastName;
+				},
+				lastName:function(inputValue){
+					this.fullName = this.firstName + " " + inputValue;
+				}
+			}
+		});
+
+
+    </script>
+</body>
+</html>

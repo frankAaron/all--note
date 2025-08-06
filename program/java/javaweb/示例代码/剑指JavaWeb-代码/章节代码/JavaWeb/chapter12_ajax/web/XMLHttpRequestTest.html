@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>测试XMLHttpRequest</h1>
+    <input type="button" value="点我发送请求" @click="fun01"/><br/>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{},
+        methods:{
+            fun01:function () {
+                alert("测试XMLHttpRequest");
+                // 创建XMLHttpRequest对象
+                const xhr = new XMLHttpRequest();
+                // 发送GET请求
+                xhr.open("GET", "xmlHttpRequestTest?message=hello");
+
+                // 监听进度事件，等响应完成后获取响应内容
+                xhr.onreadystatechange = function () {
+                    // 如果请求还没有返回, 直接结束
+                    if (xhr.readyState !== 4) return;
+                    // 响应状态码在200~299都代表请求成功
+                    if (xhr.status >= 200 && xhr.status <= 299) {
+                        // 获取所有的响应头信息
+                        console.log(xhr.getAllResponseHeaders());
+                        // 获取指定的响应头信息
+                        console.log(xhr.getResponseHeader("Content-Length"));
+
+                        // 获取响应体文本
+                        console.log(xhr.responseText);
+                    }
+                };
+
+                // 发送请求
+                xhr.send();
+
+            }
+
+        }
+    });
+</script>
+
+</body>
+</html>

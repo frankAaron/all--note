@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<!--启动项目，默认查找该网页index.html(首页)-->
+<a href="helloServlet">点击访问服务器中的HelloServlet</a><br/>
+
+<!--<a href="my">点击访问服务器中的MyServlet</a><br/><br/><br/>-->
+
+<!--测试应用域对象-->
+<a href="setMsg">点击访问设置共享数据的Servlet</a><br/>
+<a href="getMsg">点击访问获取共享数据的Servlet</a><br/>
+<a href="removeMsg">点击访问移除共享数据的Servlet</a><br/>
+
+<!--测试请求和响应-->
+<!--超链接传参数：username=admin，password=root  模拟get请求-->
+<a href="requestTest">点击访问服务器中的RequestTestServlet</a><br/>
+
+<form action="requestTest" method="get">
+    username: <input type="text" name="username" /><br/>
+    password: <input type="password" name="password" /><br/>
+    <input type="submit" value="提交" /><br />
+</form>
+<br/>
+<form action="requestTest" method="post">
+    你喜欢的足球队<br /><br />
+    巴西<input type="checkbox" name="soccerTeam" value="Brazil" /><br />
+    德国<input type="checkbox" name="soccerTeam" value="German" /><br />
+    荷兰<input type="checkbox" name="soccerTeam" value="Holland" /><br />
+    <input type="submit" value="提交" /><br />
+</form>
+<br /><br /><br />
+
+
+<form action="requestTest" method="post">
+    username: <input type="text" name="username" /><br/>
+    password: <input type="password" name="password" /><br/>
+    email: <input type="text" name="email" /><br/>
+    hobby: <input type="checkbox" name="hobby" value="Java"/>Java
+           <input type="checkbox" name="hobby" value="MySQL"/>MySQL
+           <input type="checkbox" name="hobby" value="Python"/>Python<br/>
+    <input type="submit" value="提交" /><br/><br/>
+</form>
+
+
+<a href="first">点击跳转至FirstServlet</a><br/>
+<a href="responseTest">点击跳转至ResponseTestServlet</a><br/>
+
+<!--测试字符乱码-->
+
+<form action="chartSetTest" method="post">
+    username:<input type="text" name="username"/><br/>
+    nickname:<input type="text" name="nickname"/><br/>
+    <input type="submit">
+</form>
+
+</body>
+</html>

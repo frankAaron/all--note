@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>尚硅谷会员注册页面</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/register.css}" />
+    <style type="text/css">
+      .login_form {
+        height: 420px;
+        margin-top: 25px;
+      }
+    </style>
+    <script th:src="@{/static/script/vue.js}"></script>
+    <script th:src="@{/static/script/axios.min.js}"></script>
+  </head>
+  <body>
+  <div id="box">
+    <div id="login_header">
+      <a th:href="@{/index.html}">
+        <img class="logo_img" alt="" th:src="@{/static/img/logo.gif}" />
+      </a>
+    </div>
+    <div class="login_banner">
+      <div class="register_form">
+        <h1>注册尚硅谷会员</h1>
+        <form th:action="@{/user?method=regist}" @submit="checkRegist" method="post">
+          <div class="form-item">
+            <div>
+              <label>用户名称:</label>
+              <input type="text" placeholder="请输入用户名" name="username" @blur="checkUsername" v-model="username"/>
+            </div>
+            <span class="errMess">{{usernameMsg}}</span>
+          </div>
+          <div class="form-item">
+            <div>
+              <label>用户密码:</label>
+              <input type="password" placeholder="请输入密码" name="password" @blur="checkPassword" v-model="password"/>
+            </div>
+            <span class="errMess">{{passwordMsg}}</span>
+          </div>
+          <div class="form-item">
+            <div>
+              <label>确认密码:</label>
+              <input type="password" placeholder="请输入确认密码" @blur="checkConfirmPassword" v-model="confirmPassword"/>
+            </div>
+            <span class="errMess">{{confirmPasswordMsg}}</span>
+          </div>
+          <div class="form-item">
+            <div>
+              <label>用户邮箱:</label>
+              <input type="text" placeholder="请输入邮箱" name="email" @blur="checkEmail" v-model="email"/>
+            </div>
+            <span class="errMess">{{emailMsg}}</span>
+          </div>
+          <div class="form-item">
+            <div>
+              <label>验证码:</label>
+              <div class="verify">
+                <input type="text" placeholder="" name="code" v-model="code" @blur="checkCode"/>
+                <img :src="codeSrc" alt="" height="40px" width="150px" @click="changeCode"/>
+              </div>
+            </div>
+            <span class="errMess">{{codeMsg}}</span>
+          </div>
+          <button class="btn">注册</button>
+        </form>
+      </div>
+    </div>
+    <div id="bottom">
+      <span>
+        尚硅谷书城.Copyright &copy;
+      </span>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el:"#box",
+      data:{
+        username:"[[${param.username}]]",
+        usernameMsg:"[[${param.username==null?'用户名应为6~16位数组和字母组成':'√'}]]",
+        password:"[[${param.password}]]",
+        passwordMsg:"[[${param.password==null?'密码的长度至少为8位':'√'}]]",
+        confirmPassword:"[[${param.password}]]",
+        confirmPasswordMsg:"[[${param.password==null?'密码两次输入不一致':'√'}]]",
+        email:"[[${param.email}]]",
+        emailMsg:"[[${param.email==null?'请输入正确的邮箱格式':'√'}]]",
+        code:"[[${param.code}]]",
+        codeMsg:"[[${codeErrMsg==null?'请输入验证码':codeErrMsg}]]",
+        codeSrc:"kaptcha",
+        usernameFlag:"[[${param.username==null?"+false+":"+true+"}]]",
+        passwordFlag:"[[${param.password==null?"+false+":"+true+"}]]",
+        confirmPasswordFlag:"[[${param.password==null?"+false+":"+true+"}]]",
+        emailFlag:"[[${param.email==null?"+false+":"+true+"}]]",
+        codeFlag:"[[${param.code==null?"+false+":"+true+"}]]",
+      },
+      methods:{
+        changeCode:function (){
+          //time=new Date()是为了每次的请求路径都不一样，避免浏览器缓存
+          this.codeSrc="kaptcha?time="+new Date();
+        },
+        checkUsername:function () {
+          //1. 校验用户名是否符合要求
+          var usernameReg=/^[a-zA-Z0-9]{6,16}$/;
+          if(usernameReg.test(this.username)){
+            //当用户名格式已经正确，就可以发送异步请求到后台，进行用户名重复的验证
+            axios({
+              method:"post",
+              url:"user?method=checkUsername",
+              params:{
+                username:this.username
+              }
+            }).then(response => {
+              var result=response.data;//{flag:true/false}
+              if(result.flag){
+                this.usernameMsg="√"
+                this.usernameFlag=true;
+              }else{
+                this.usernameMsg="用户名重复，请更换！"
+                this.usernameFlag=false;
+              }
+            });
+          }else{
+            this.usernameMsg="用户名应为6~16位数组和字母组成"
+            this.usernameFlag=false;
+          }
+        },
+        checkPassword:function () {
+          var passwordReg=/^[a-zA-Z0-9_]{8,}$/
+          if(passwordReg.test(this.password)){
+            this.passwordMsg="√"
+            this.passwordFlag=true;
+          }else{
+            this.passwordMsg="密码的长度至少为8位"
+            this.passwordFlag=false;
+          }
+        },
+        checkConfirmPassword:function () {
+          if(this.password==this.confirmPassword){
+            this.confirmPasswordMsg="√"
+            this.confirmPasswordFlag=true;
+          }else{
+            this.confirmPasswordMsg="密码两次输入不一致"
+            this.confirmPasswordFlag=false;
+          }
+        },
+        checkEmail:function () {
+          var emailReg=/^[a-zA-Z0-9_\.-]+@([a-zA-Z0-9-]+[\.]{1})+[a-zA-Z]+$/;
+          if(emailReg.test(this.email)){
+            this.emailMsg="√"
+            this.emailFlag=true;
+          }else{
+            this.emailMsg="请输入正确的邮箱格式"
+            this.emailFlag=false;
+          }
+        },
+        checkCode:function (){
+          if(this.code==''){
+            this.codeMsg='验证码不能为空';
+            this.codeFlag=true;
+          }else{
+            this.codeMsg='';
+            this.codeFlag=false;
+          }
+        },
+        checkRegist:function () {
+          if(!(this.usernameFlag&&this.passwordFlag&&this.confirmPasswordFlag&&this.emailFlag()&&this.codeFlag)){
+            event.preventDefault()
+          }
+        }
+      }
+    })
+  </script>
+  </body>
+</html>

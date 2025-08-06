@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fun01() {
+            var span01 = document.getElementById("span01");
+            span01.innerText = "新的值";
+        }
+    </script>
+</head>
+<body>
+   <!--创建一个span标签和一个按钮，点击按钮修改span标签的内容-->
+    <span id="span01">这是原始内容</span><br/>
+    <input type="button" value="点击修改span的值" onclick="fun01()">
+</body>
+</html>

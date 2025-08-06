@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, 
+initial-scale=1.0" />
+    <title>JavaScript数据类型</title>
+    <style>
+      #btn {
+        width: 200px;
+        height: 40px;
+        border-radius: 5px;
+      }
+    </style>
+	
+	<script language="javascript">
+        
+		console.log(typeof 666); 					// number
+        console.log(typeof "atguigu"); 			// string
+
+		//Number类型
+		console.log(typeof 123); 					// number
+        console.log(typeof 12.3); 					// number
+		console.log(typeof 1234567890); 			// number
+		console.log(typeof 0.000001); 				// number
+		console.log(typeof -987654321); 			// number
+
+		var a=10-"atguigu";
+		console.log(a); 						//NaN
+		console.log(typeof a); 				   // number
+
+		//String类型
+		console.log(typeof 'abc'); 					// string
+		console.log(typeof '尚硅谷'); 				// string
+		console.log(typeof "尚硅谷"); 				// string
+		console.log(typeof "1234"); 				// string
+
+		var str = "atguigu";
+		console.log(typeof str); 					// string
+
+		//Boolean类型
+		var a = true;
+		var b = false;
+		console.log(typeof a); 				    // boolean
+		console.log(typeof b); 					// boolean
+
+		console.log(3 > 6); 					// false
+		console.log(23 > 15); 					// true
+
+		//Undefined类型
+		var und;
+		console.log(und);						// undefined
+		console.log(typeof und);				// undefined
+
+		var und = undefined;
+		console.log(und);						// undefined
+
+		var und;
+		und = "我是数据";
+		console.log(und);						// 我是数据
+		und = undefined;
+		console.log(und);						// undefined
+
+		//Null类型
+		var a = null;
+		console.log(a);							// null
+		console.log(typeof a);					// object
+
+		//ES5中var关键字在定义常量时可以被修改
+		var username1 = "atguigu";
+		username1 = "尚硅谷";
+
+		//ES6中const关键字在定义常量时不可以被修改
+		const username2 = "atguigu";
+		username2 = "atguigu"; 					// 报错
+
+		
+		
+    </script>
+  </head>
+  <body>
+    
+    
+  </body>
+</html>

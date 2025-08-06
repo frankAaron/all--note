@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JavaWeb.iml" filepath="$PROJECT_DIR$/JavaWeb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter02_html/chapter02_html.iml" filepath="$PROJECT_DIR$/chapter02_html/chapter02_html.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter03_css/chapter03_css.iml" filepath="$PROJECT_DIR$/chapter03_css/chapter03_css.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter04_xml/chapter04_xml.iml" filepath="$PROJECT_DIR$/chapter04_xml/chapter04_xml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter05_tomcat/chapter05_tomcat.iml" filepath="$PROJECT_DIR$/chapter05_tomcat/chapter05_tomcat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter06_http/chapter06_http.iml" filepath="$PROJECT_DIR$/chapter06_http/chapter06_http.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter07_JdbcTest/chapter07_JdbcTest.iml" filepath="$PROJECT_DIR$/chapter07_JdbcTest/chapter07_JdbcTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter07_login_register/chapter07_login_register.iml" filepath="$PROJECT_DIR$/chapter07_login_register/chapter07_login_register.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter07_servlet/chapter07_servlet.iml" filepath="$PROJECT_DIR$/chapter07_servlet/chapter07_servlet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter08_fruit/chapter08_fruit.iml" filepath="$PROJECT_DIR$/chapter08_fruit/chapter08_fruit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter08_thymeleaf/chapter08_thymeleaf.iml" filepath="$PROJECT_DIR$/chapter08_thymeleaf/chapter08_thymeleaf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter09_ cookie/chapter09_ cookie.iml" filepath="$PROJECT_DIR$/chapter09_ cookie/chapter09_ cookie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter09_login_register/chapter09_login_register.iml" filepath="$PROJECT_DIR$/chapter09_login_register/chapter09_login_register.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter09_session/chapter09_session.iml" filepath="$PROJECT_DIR$/chapter09_session/chapter09_session.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter10_js/chapter10_js.iml" filepath="$PROJECT_DIR$/chapter10_js/chapter10_js.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter11_vue/chapter11_vue.iml" filepath="$PROJECT_DIR$/chapter11_vue/chapter11_vue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter12_ajax/chapter12_ajax.iml" filepath="$PROJECT_DIR$/chapter12_ajax/chapter12_ajax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter12_login_register/chapter12_login_register.iml" filepath="$PROJECT_DIR$/chapter12_login_register/chapter12_login_register.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter13_filter_listener/chapter13_filter_listener.iml" filepath="$PROJECT_DIR$/chapter13_filter_listener/chapter13_filter_listener.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter13_login_register/chapter13_login_register.iml" filepath="$PROJECT_DIR$/chapter13_login_register/chapter13_login_register.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo02/demo02.iml" filepath="$PROJECT_DIR$/demo02/demo02.iml" />
+    </modules>
+  </component>
+</project>

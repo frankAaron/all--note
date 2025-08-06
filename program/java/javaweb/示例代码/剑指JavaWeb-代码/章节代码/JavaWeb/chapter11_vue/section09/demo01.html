@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue生命周期</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <p ref="pRef">{{message}}</p>
+        <button @click="message = '尚硅谷拥有最好的互联网技术培训'">更新内容</button>
+    </div>
+
+    <script>
+        //创建Vue对象，挂载#app这个div标签
+		var app = new Vue({
+			el:"#app",
+			data:{
+				message: '欢迎来到尚硅谷'
+			},
+			beforeCreate() {
+                console.log('beforeCreate', this.message, this.$refs.pRef);
+            },
+            created() {
+                console.log('created', this.message, this.$refs.pRef);
+            },
+            beforeMount() {
+                console.log('beforeMount', this.message, this.$refs.pRef);
+            },
+            mounted() {
+                console.log('mounted', this.message, this.$refs.pRef);
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate');
+                debugger;
+            },
+            updated() {
+                console.log('updated')
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy', this.$refs.pRef);
+                debugger;
+            },
+            destroyed() {
+                console.log('destroyed', this.$refs.pRef);
+            }
+		});
+
+    </script>
+</body>
+</html>

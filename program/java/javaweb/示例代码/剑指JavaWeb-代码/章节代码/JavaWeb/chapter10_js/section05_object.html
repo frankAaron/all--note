@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, 
+		  initial-scale=1.0" 
+	/>
+    <title>对象</title>
+	
+	<script language="javascript">
+		const obj = new Object();
+		console.log(obj);
+	  
+		obj.name = "尚硅谷";
+		obj["age"] = 9;	
+		console.log(obj);
+
+		obj.age = 6;
+		console.log(obj);
+
+		obj.eat = function (){
+			console.log(this.name+"在吃饭");
+		}
+		obj.run = function (){
+			console.log(this.name+"在跑步");
+		}
+
+/*		
+		const obj = {
+			name: "Lucy",
+			sex: "女",
+			score: [100, 90, 80, 12, 35, 34],
+			family: {
+				father: "Tom",
+				mother: "Marry",
+				sister: {
+					sis1: "amy",
+					sis2: "alice",
+					sis3: "angela",
+				},
+			},
+		};
+		console.log(obj);
+*/
+/*		// 使用对象字面量创建一个对象
+		const obj1 = { name: "老王" };
+		// 通过create方法创建obj1的子对象
+		const obj2 = Object.create(obj1);
+		// 通过子对象obj2能读取到父对象中的name属性
+		console.log(obj2.name); 					// 老王
+		// 查看obj2的内部结构
+		console.log(obj2);
+
+		// 创建没有原型对象的对象
+		const obj4 = Object.create(null);
+		console.log(obj4);
+
+		// 获取指定对象中指定属性名的属性值
+		function getInfo(obj, propName) {
+		//获取obj的propName属性值
+			return obj[propName];
+		}
+ 
+		const user = { name: "华华", sex: "男", age: 19 };
+		console.log(getInfo(user, "sex")); 				// "男"
+		console.log(getInfo(user, "age")); 				// 19
+
+	
+*/		
+    </script>
+  </head>
+  <body>
+    
+    
+  </body>
+</html>

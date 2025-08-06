@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+		<h1 v-if="isShow">尚硅谷IT教育1</h1>
+		<h2 v-show="isShow">尚硅谷IT教育2</h2>
+		<button @click="isShow=!isShow">切换标识</button>
+	</div>
+
+
+
+    <script>
+        // 创建Vue对象，挂载#app这个div标签
+		var app = new Vue({
+			el:"#app",
+			data:{
+				isShow: false
+			}
+		});
+
+
+    </script>
+</body>
+</html>

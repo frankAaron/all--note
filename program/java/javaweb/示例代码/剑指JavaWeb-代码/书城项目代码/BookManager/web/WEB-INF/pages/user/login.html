@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>尚硅谷会员登录页面</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <script th:src="@{/static/script/vue.js}"></script>
+  </head>
+  <body>
+  <div id="box">
+    <div id="login_header">
+      <a th:href="@{/index.html}">
+        <img class="logo_img" alt="" th:src="@{/static/img/logo.gif}" />
+      </a>
+    </div>
+    <div class="login_banner">
+      <div id="l_content">
+        <span class="login_word">欢迎登录</span>
+      </div>
+
+      <div id="content">
+        <div class="login_form">
+          <div class="login_box">
+            <div class="tit">
+              <h1>尚硅谷会员</h1>
+            </div>
+            <div class="msg_cont">
+              <b></b>
+              <span class="errorMsg">{{errMsg}}</span>
+            </div>
+            <div class="form">
+              <form th:action="@{/user?method=login}" @submit="checkLogin" method="post">
+                <label>用户名称：</label>
+                <input
+                    class="itxt"
+                    type="text"
+                    placeholder="请输入用户名"
+                    autocomplete="off"
+                    tabindex="1"
+                    name="username"
+                    id="username"
+                    v-model="username"
+                />
+                <br />
+                <br />
+                <label>用户密码：</label>
+                <input
+                    class="itxt"
+                    type="password"
+                    placeholder="请输入密码"
+                    autocomplete="off"
+                    tabindex="1"
+                    name="password"
+                    id="password"
+                    v-model="password"
+                />
+                <br />
+                <br />
+                <input type="submit" value="登录" id="sub_btn" />
+              </form>
+              <div class="tit">
+                <a th:href="@{/user?method=regist.html}">立即注册</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="bottom">
+      <span>
+        尚硅谷书城.Copyright &copy;2015
+      </span>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el:"#box",
+      data:{
+        username:"[[${param.username}]]",
+        password:"[[${param.password}]]",
+        errMsg:"[[${errMsg==null?'请输入用户名和密码':errMsg}]]"
+      },
+      methods:{
+        checkLogin:function () {
+          //1. 验证用户名是否为空
+          if(this.username==""){
+            //2.需要在上方进行提示
+            this.errMsg="用户名不能为空"
+            event.preventDefault();
+            return;
+          }
+          if(this.password==""){
+            this.errMsg="密码不能为空"
+            event.preventDefault();
+          }
+        }
+      }
+    })
+  </script>
+  </body>
+</html>

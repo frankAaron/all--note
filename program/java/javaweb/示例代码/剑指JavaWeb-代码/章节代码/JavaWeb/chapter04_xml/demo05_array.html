@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, 
+		  initial-scale=1.0" 
+	/>
+    <title>数组</title>
+	
+	<script language="javascript">
+/*		
+		const arr1 = [1, "atguigu", 3];
+		const arr2 = [];
+		const arr3 = [3];
+
+		console.log(arr1); 				// [1,"atguigu", 3]
+		console.log(arr2); 				// []
+		console.log(arr3); 				// [3]
+
+		
+		const arr1 = Array(1, 2, 3);
+		const arr2 = Array("atguigu");
+		const arr3 = Array(3);
+		const arr4 = Array();
+
+		console.log(arr1); 				// [1, 2, 3]
+		console.log(arr2); 				// ["atguigu"]
+		console.log(arr3); 				// [empty × 3]
+		console.log(arr4); 				// []
+*/
+/*		// 创建数组
+		const arr = new Array();
+		console.log(arr); 					// []
+ 
+		// 以下标的方式添加元素
+		arr[0] = 1;
+		arr[1] = "atguigu";
+ 
+		console.log(arr); 					// [1, "atguigu"]
+		console.log(arr[0], arr[1]); 		// 1 "atguigu"
+*/
+/*		const arr = [1, 2, 3];
+		arr[5] = 1000;
+		arr[arr.length] = 1000;
+		console.log(arr);
+		
+		var arr1 = [1, 2, 3];
+ 
+		for (var i = 0; i < arr1.length; i++) {
+			console.log(arr1[i]);
+		}
+*/
+/*		var arr = [1, 2, 3];
+		arr.forEach(function (element, index, arr) {
+			console.log("element = ", element);
+			console.log("index = ", index);
+			console.log("arr = ", arr);
+		});
+*/
+/*		function addTen(arr) {
+			for (let element = 0; element < arr.length; element++) {
+				arr[element] = arr[element] + 10;
+			}
+			return arr;
+		}
+
+		const arr1 = [1, 2, 3];
+		const arrOver = addTen(arr1);
+		console.log(arrOver); 
+*/
+/*		var arr = [1, 2, 3, 4, 5];
+
+		// 第一次删除
+		arr.length -= 1;
+
+		// 第二次删除
+		arr.length = arr.length - 1;
+
+		// 第三次删除
+		arr.length--;
+		console.log(arr); 					// [1,2]
+		console.log(arr[4]); 				// undefined
+*/
+		
+/*		var arr = [1, 2, 3, 4, 5];
+		for (var i = 1; i <= arr.length - 1; i++) {
+			arr[i - 1] = arr[i];
+		}
+		arr.length--;
+		console.log(arr); 					// [ 2, 3, 4, 5 ]
+*/
+		
+/*		var arr = [1, 2, 3, 4];
+		const result = arr.pop();
+		console.log(arr); 					// [ 1, 2, 3 ]
+		console.log(result); 				// 4
+*/
+		
+/*		var arr = [];
+		const result = arr.pop();
+		console.log(arr); 					// []
+		console.log(result); 				// undefined
+*/
+		
+		var arr = [1, 2, 3, 4];
+		const result = arr.shift();
+		console.log(arr); 					// [ 2, 3, 4 ]
+		console.log(result); 				// 1
+
+    </script>
+  </head>
+  <body>
+    
+    
+  </body>
+</html>

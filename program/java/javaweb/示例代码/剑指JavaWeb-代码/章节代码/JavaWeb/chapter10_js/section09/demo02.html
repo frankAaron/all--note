@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>焦点事件</title>
+</head>
+<body>
+	输入框：<input type="text" id="ipt" onfocus="fun01()" onblur="fun02()" >
+    
+	<script>
+        // var ipt = document.getElementById("ipt");
+
+		//绑定获取焦点事件
+		 function fun01 () {
+			console.log("获取焦点了...")
+		}
+
+		//绑定失去焦点事件
+		 function fun02 () {
+			console.log("失去焦点了...")
+		}
+	</script>
+</body>
+</html>

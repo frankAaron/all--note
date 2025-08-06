@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <p>{{123}}</p>
+        <p>{{msg}}</p>
+        <p>{{msg.toUpperCase()}}</p>
+        <p>{{score<60 ? '入学测试未通过, 暂时不可以来尚硅谷学习' : '入学测试通过，欢迎来尚硅谷学习'}}</p>
+    </div>
+
+    <script>
+        //往Vue对象内传递Json对象
+        new Vue({
+            //el是Element的缩写，#box是id选择器，选择一个Vue可以操作的区域
+            el: "#app",
+            //data是数据模型
+            data: {
+                msg: 'Welcome to Atguigu',
+                score: 59
+            }
+        });
+    </script>
+</body>
+</html>

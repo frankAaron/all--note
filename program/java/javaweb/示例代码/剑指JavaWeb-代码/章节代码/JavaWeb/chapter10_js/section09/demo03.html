@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>onchange事件</title>
+</head>
+<body>
+    <!--内容改变(onchange)-->
+    <select onchange="changeCity(this)">
+        <option value="bj">北京</option>
+        <option value="sh">上海</option>
+        <option value="sz">深圳</option>
+    </select>
+	<!--当下拉框里的城市发生改变时，触发该事件-->
+	<script>
+		function changeCity(obj) {
+			console.log("城市改变了，当前为"+obj.value);
+		}
+	</script>
+</body>
+
+</html>

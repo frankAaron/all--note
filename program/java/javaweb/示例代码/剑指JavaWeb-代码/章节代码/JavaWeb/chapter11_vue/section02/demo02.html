@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <a v-bind:href="url">去学习IT技术</a><br/>
+        <button v-on:click="confirm">确认一下</button>
+    </div>
+
+    <script>
+        //往Vue对象内传递Json对象
+        new Vue({
+            //el是Element的缩写，#app是id选择器，选择一个Vue可以操作的区域
+            el:"#app",
+            //data是数据模型
+            data:{
+                url: 'http://www.atguigu.com'
+            },
+            //创建函数
+            methods:{
+                //单击button按钮触发confirm函数（方法）
+                confirm:function () {
+                    if (window.confirm('确定要来学习吗？')) {
+                        window.location.href = 'http://www.atguigu.com'
+                    }
+                }
+
+            }
+        });
+
+    </script>
+</body>
+</html>

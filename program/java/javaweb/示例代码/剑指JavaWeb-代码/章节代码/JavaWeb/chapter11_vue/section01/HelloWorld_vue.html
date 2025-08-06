@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <!--创建一个span标签和一个按钮，点击按钮修改span标签的内容
+        如果页面内有很多位置需要操作span内容，vue比js更方便操作
+    -->
+    <div id="box">
+        <!--计划将span的标签体内容和Vue的数据模型做一个绑定关系
+            一旦绑定成功，要想操作span的内容，直接操作msg的值即可
+        -->
+        <span>{{msg}}</span><br/>
+        <input type="button" value="按钮" @click="fun01()">
+    </div>
+    <script>
+        //往Vue对象内传递Json对象
+        new Vue({
+            //el是Element的缩写，#box是id选择器，选择一个Vue可以操作的区域
+            el:"#box",
+            //data是数据模型
+            data:{
+                msg:"这是原始数据"
+            },
+            //创建函数
+            methods:{
+                fun01:function () {
+                    //操作span标签的内容
+                    this.msg = "新值"
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

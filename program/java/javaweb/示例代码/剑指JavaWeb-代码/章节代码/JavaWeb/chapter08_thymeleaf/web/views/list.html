@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>A页面</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>员工编号</th>
+            <th>员工姓名</th>
+            <th>员工工资</th>
+        </tr>
+        <tr th:if="${#lists.isEmpty(employeeList)}">
+            <td colspan="3">抱歉！没有查询到你搜索的数据！</td>
+        </tr>
+        <tr th:if="${not #lists.isEmpty(employeeList)}">
+            <td colspan="3">有数据！</td>
+        </tr>
+        <!-- 或者 -->
+       <!-- <tr th:unless="${#lists.isEmpty(employeeList)}">
+            <td colspan="3">有数据！</td>
+        </tr>-->
+    </table>
+
+    <h3>测试switch</h3>
+
+    <div th:switch="${#lists.size(employeeList)}">
+        <p th:case="1">一个和尚挑水喝</p>
+        <p th:case="2">两个和尚抬水喝</p>
+        <p th:case="3">三个和尚没水喝</p>
+    </div>
+
+    <!--遍历显示请求域中的teacherList-->
+    <table border="1" cellspacing="0" width="500">
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>工资</th>
+        </tr>
+        <tbody th:if="${#lists.isEmpty(employeeList)}">
+        <tr>
+            <td colspan="2">员工的集合是空的!!!</td>
+        </tr>
+        </tbody>
+
+        <!--集合不为空，遍历展示数据-->
+        <tbody th:unless="${#lists.isEmpty(employeeList)}">
+        <tr th:each="employee,status : ${employeeList}">
+            <td th:text="${status.count}">这里显示编号</td>
+            <td th:text="${employee.name}">这里显示员工的名字</td>
+            <td th:text="${employee.salary}">这里显示员工的工资</td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

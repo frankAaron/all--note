@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+	
+	<!--1. v-for作用于单个标签 -->
+	<!--
+	<h2>测试遍历数组<人员列表>（用得很多）</h2>
+		<ul>
+			<li v-for="(p,index) in persons">
+				{{index}}--{{p.name}}--{{p.age}}
+			</li>
+		</ul>
+	 
+		<h2>测试遍历对象<汽车信息>（用得少）</h2>
+		<ul>
+			<li v-for="(value,name) in car">
+				{{name}}--{{value}}
+			</li>
+		</ul>
+	 
+		<h2>测试遍历指定次数（用得少）</h2>
+		<ul>
+			<li v-for="value in num">
+				{{value}}
+			</li>
+		</ul>
+	-->	
+	<!--2. v-for作用于多个标签 -->
+	
+	<!--	<h2>v-for同时作用于多个标签</h2>
+		<ul>
+			<template v-for="p in persons">
+				<li>{{p.name}}--{{p.age}}</li>
+				<span>来自尚硅谷学员</span>
+			</template>
+		</ul>
+	-->
+	<!--3. key属性 -->	
+		<h2>在v-for时指定唯一的key</h2>
+		<ul>
+			<li v-for="(p,index) in persons" :key="p.id">
+				{{index}}--{{p.name}}--{{p.age}}
+			</li>	
+		</ul>
+
+	</div>
+
+
+
+    <script>
+        //创建Vue对象，挂载#app这个div标签
+		var app = new Vue({
+			el:"#app",
+			data:{
+				persons:[
+					{id:'001',name:'张三',age:22},
+					{id:'002',name:'李四',age:24},
+					{id:'003',name:'王五',age:23}
+				],
+				car:{
+					name:'奥迪A8',
+					price:'70万',
+					color:'黑色'
+				},
+				num: 5
+			}
+		});
+
+    </script>
+</body>
+</html>

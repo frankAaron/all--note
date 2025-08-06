@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM之查询</title>
+</head>
+<body>
+    <div id="div01">
+        <input type="text" id="username" name="aaa"/>
+        <input type="text" id="password" name="aaa"/>
+        <input type="text" id="email"/>
+        <input type="text" id="address"/>
+    </div>
+    <input type="text"/><br>
+    <input type="button" value="整个文档搜索按钮" id="btn01"/>
+    <input type="button" value="具体元素子级搜索按钮" id="btn02"/>
+    <input type="button" value="子级找父级搜索按钮" id="btn03"/>
+    <input type="button" value="兄弟搜索按钮" id="btn04"/>
+    <script>
+        document.getElementById("btn01").onclick=function () {
+            //根据id属性值获得元素对象
+            var elementById = document.getElementById("username");
+            console.log(elementById);
+            //根据标签名称获得元素对象数组
+            var inputs = document.getElementsByTagName("input");
+            console.log(inputs.length);
+            for (var i = 0; i < inputs.length; i++) {
+                console.log(inputs[i]);
+            }
+            //根据name属性值获得元素对象数组
+            var elementsByName = document.getElementsByName("aaa");
+            console.log(elementsByName.length);
+            for (var i = 0; i < elementsByName.length; i++) {
+                console.log(elementsByName[i]);
+            }
+        }
+        document.getElementById("btn02").onclick=function () {
+            //从div内搜索
+            var div01 = document.getElementById("div01");
+            //div01中的所有子节点元素数组
+            var children = div01.children;
+            console.log(children.length);
+            for (var i = 0; i < children.length; i++) {
+                console.log(children[i]);
+            }
+            //第一个子节点元素
+            var firstElementChild = div01.firstElementChild;
+            console.log(firstElementChild);
+            //最后一个子节点元素
+            var lastElementChild = div01.lastElementChild;
+            console.log(lastElementChild);
+        }
+        document.getElementById("btn03").onclick=function () {
+            var elementById = document.getElementById("password");
+            //父级节点元素
+            var parentElement = elementById.parentElement;
+            console.log(parentElement)
+        }
+        document.getElementById("btn04").onclick=function () {
+            var elementById = document.getElementById("password");
+            //前一个兄弟
+            var previousElementSibling = elementById.previousElementSibling;
+            console.log(previousElementSibling)
+            //后一个兄弟
+            var nextElementSibling = elementById.nextElementSibling;
+            console.log(nextElementSibling)
+        }
+    </script>
+</body>
+</html>

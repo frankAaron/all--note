@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+	
+		<h1>你的入学测试得分: {{score}}</h1>
+		
+		<!-- 情况一 -->
+		<button @click="examAgin" v-show="score<60">学习后再复试一次</button>
+		
+		<!-- 情况二 -->
+		<!--<h2 v-show="score>=60" style="color: green;">欢迎来到尚硅谷学习!</h2>
+		<h3 v-show="score<60" style="color: red;">很遗憾, 你的入学测试没有通过...</h3>-->
+
+		<!-- 情况三 -->
+		<h2 v-show="score>=60" style="color: green;">欢迎来到尚硅谷学习!</h2>
+		<h3 v-show="score<50" style="color: red;">
+			很遗憾, 你的入学测试没有通过，可以考虑UI或测试
+		</h3>
+		<h4 v-show="score<60 && score>=50" style="color: purple;">
+			此次测试没有完全通过, 可选择复试
+		</h4>
+
+
+
+	</div>
+
+
+    <script>
+        //创建Vue对象，挂载#app这个div标签
+		var app = new Vue({
+			el:"#app",
+			data:{
+				score: 55,
+				//score: 30,
+			},	
+			methods: {
+				examAgin () {
+					  this.score += 10
+				}
+			}
+			
+		});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<html>
+<head>
+    <title>删除水果</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/demo01.css">
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="div_container">
+        <div id="div_fruit_list">
+            <table id="tbl_fruit">
+                <tr>
+                    <td>名称</td>
+                    <td>单价</td>
+                    <td>数量</td>
+                    <td>小计</td>
+                    <td>操作</td>
+				</tr>	
+                <tr v-for="(fruit,index) in fruitList" @mouseover="changeBgColor(1)" @mouseout="changeBgColor(2)">
+                    <td>{{fruit.name}}</td>
+                    <td @click="editNum(index)" v-if="fruit.flag" class="numcss">{{fruit.num}}</td>
+                    <td v-else  class="numcss">
+                        <input type="number" v-model="fruit.num" @mouseout="updateNum(index)" size="4" @keydown="ckInput()">
+                    </td>
+                    <td>{{fruit.price}}</td>
+                    <td>{{fruit.num*fruit.price}}</td>
+                    <td><img src="imgs/del.jpg" class="delImg" @click="del(index)"></td>
+                </tr>
+
+                <tr>
+                    <td>总计</td>
+                    <td colspan="4">{{sum}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#div_container",
+        data:{
+            fruitList:[
+                {name:"苹果",num:5,price:20,flag:true},
+                {name:"香蕉",num:7,price:10,flag:true},
+                {name:"梨儿",num:3,price:20,flag:true},
+                {name:"西瓜",num:10,price:20,flag:true}
+            ],
+            sum:0
+        },
+        methods:{
+            //3.删除水果信息
+            del:function (index){
+                this.fruitList.splice(index,1);
+                this.result()
+            },
+
+            //2.更新单价
+            //编辑单价
+            editNum:function (index){
+                this.fruitList[index].flag=false;
+                console.log(event.target.parentElement);
+                event.target.parentElement.classList.remove("hover");
+            },
+            //更新单价
+            updateNum:function (index){
+                if(!event.target.value) {
+                    event.target.value = 0;
+                }
+                this.fruitList[index].num=event.target.value;
+                this.fruitList[index].flag=true;
+                this.result()
+            },
+            //校验输入的值是否为数字
+            ckInput:function (){
+                var kc = event.keyCode;
+                console.log(kc);
+                if(!((kc>=48 && kc<=57) || kc==8 || kc==13)){
+                    event.returnValue = false;
+                }
+                if(kc == 13){
+                    event.srcElement.blur();
+                }
+            },
+
+            //1.鼠标滑动
+            changeBgColor:function (i){
+                if(i==1){
+                    event.target.parentElement.classList.add("hover");
+                }else{
+                    event.target.parentElement.classList.remove("hover");
+                }
+            },
+            //计算总计
+            result:function (){
+                var sum=0;
+                for (let i = 0; i < this.fruitList.length; i++) {
+                    sum+=this.fruitList[i].num*this.fruitList[i].price;
+                }
+                this.sum=sum;
+            },
+        },
+        //刷新总计
+        created:function (){
+            this.result();
+        }
+
+
+    })
+</script>
+</html>

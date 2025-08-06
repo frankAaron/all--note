@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/chapter12_ajax_war_exploded/">
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!--导入框架代码-->
+    <script src="vue.js"></script>
+    <script src="axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>首页</h1>
+   <!-- <input type="button" value="点我发送异步请求" @click="fun01"/><br/>-->
+    <input type="button" value="点我发送异步请求" @click="fun02"/>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data:{},
+        methods:{
+            fun01:function () {
+                alert(100);
+                //发送异步请求到服务器（Servlet）
+                //采用Axios异步框架（JS框架，专门发送异步请求）
+                //设置请求发送到哪里，以及携带什么参数（JSON格式传递）
+                axios({
+                   method:"post",//设置请求方式
+                   url:"ajaxTest",//设置请求路径
+                   //设置请求参数
+                   params:{
+                       message:"hello,Ajax!"
+                   }
+                }).then(response => {
+                   //程序正常运行的回调函数
+                   //获得服务器传过来的数据(response.data)
+                   var msg = response.data;
+                   alert("服务器响应数据为："+msg);
+                   //接下来就可以根据响应数据进行DOM操作（局部操作）
+                }).catch(error => {
+                    //代码出现异常的回调函数
+                    alert("服务器出现异常了");
+                });
+            },
+            fun02:function () {
+                //alert(100);
+                //采用Axios发送异步请求
+                axios({
+                    method:"post",//设置请求方式
+                    url:"jsonTest",//设置请求路径
+                    //设置请求参数
+                    params:{}
+                }).then(response => {
+                    //程序正常运行的回调函数
+                    /*后台写回来的是JSON字符串，Axios框架会判断字符串是否符合JSON格式要求
+                    如果符合，则自动转为JSON对象，如果不符合仍为字符串*/
+                    //JavaBean
+                   /* var obj = response.data;
+                    console.log(obj.id);
+                    console.log(obj.username);
+                    console.log(obj.password);*/
+                    //List
+                    /*var arrs = response.data;
+                    for (var i = 0; i < arrs.length; i++) {
+                        console.log(arrs[i].id);
+                        console.log(arrs[i].username);
+                    }*/
+                   //Map
+                    var mapObj = response.data;
+                    console.log(mapObj.a01.id);
+                    console.log(mapObj.a01.username);
+                    console.log(mapObj.a02.id);
+                    console.log(mapObj.a02.username);
+                    console.log(mapObj.a03.id);
+                    console.log(mapObj.a03.username);
+                });
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

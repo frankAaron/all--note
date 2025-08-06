@@ -1,0 +1,21 @@
+#outterDiv{
+    width: 400px;
+    height: 400px;
+    background-color:greenyellow;
+
+    /*边框样式*/
+    /* border: 4px dotted red;*/
+
+    border-width: 1px;      /*边框粗细*/
+    border-style: solid;    /*边框样式：solid（实线）*/
+    border-color:blue;      /*边框颜色*/
+}
+#innerDiv{
+    width: 200px;
+    height: 200px;
+    background-color:darkorange;
+
+    /*外边距*/
+    margin-top: 100px;
+    margin-left: 100px;
+}

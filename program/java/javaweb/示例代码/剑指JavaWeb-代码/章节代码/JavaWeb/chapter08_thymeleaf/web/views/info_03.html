@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>结果页面</title>
+</head>
+<body>
+        <h1>OGNL语法</h1>
+        学生姓名：<span th:text="${student.studentName}"></span><br/>
+        学科名字：<span th:text="${student.subject.subjectName}"></span><br/>
+        <!--已知两个学校的前提下，后面如果不知晓个数，采用迭代操作即可-->
+        学校名字：<span th:text="${student.schoolList[0].schoolName}"></span>
+                 <span th:text="${student.schoolList[1].schoolName}"></span><br/>
+        老师姓名：<span th:text="${student.teacherMap.teacher01.teacherName}"></span>
+                 <span th:text="${student.teacherMap.teacher02.teacherName}"></span><br/>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+		<h2>测试列表的增删改</h2>
+		<ul>
+			<li v-for="(p,index) in persons" :key="p.id" style="margin-top: 5px;">
+				{{p.name}}--{{p.age}}
+				-- <button @click="deleteItem(index)">删除</button>
+				-- <button @click="updateItem(index, {id: Date.now(), name: '小兰', age: 12})">更新</button>
+			</li>
+		</ul>
+		<button @click="addFirst({id: Date.now(), name: '小明', age: 10})">向第一位添加</button> --
+		<button @click="addLast({id: Date.now(), name: '小红', age: 11})">向最后一位添加</button>
+	</div>
+
+
+    <script>
+        //创建Vue对象，挂载#app这个div标签
+		var app = new Vue({
+			el:"#app",
+			data:{
+				persons:[
+					{id:'001',name:'张三',age:19},
+					{id:'002',name:'李四',age:18},
+					{id:'003',name:'王五',age:20}
+				]
+			},	
+			methods: {
+				addFirst (newP) { // 向第一位添加
+					this.persons.unshift(newP)
+				},
+				addLast (newP) { // 向最后一位添加
+					this.persons.push(newP)
+				},
+				deleteItem (index) { // 删除指定下标的
+					this.persons.splice(index, 1)
+				},
+				updateItem (index, newP) {// 将指定下标的替换为新的人
+					this.persons.splice(index, 1, newP)
+				}
+			}
+			
+		});
+
+    </script>
+</body>
+</html>

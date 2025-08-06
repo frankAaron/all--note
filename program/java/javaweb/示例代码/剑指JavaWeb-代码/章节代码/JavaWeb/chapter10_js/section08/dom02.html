@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>操作标签的属性和文本</title>
+    </head>
+    <body>
+        <input type="text" id="username" name="username" />
+        <div id="d1">
+            <h1>你好世界</h1>
+        </div>
+        <script>
+            //目标: 获取id为username的输入框的value
+            //1. 找到要操作的标签
+            var ipt = document.getElementById("username");
+
+            //2. 设置标签的value属性值
+            ipt.value = "张三"
+
+            //3. 获取标签的value属性的值
+            var value = ipt.value;
+            console.log(value)
+
+            //获取id为d1的div中的文本内容
+            //获取标签的文本: element.innerText,获取文本的时候会将左右两端的空格去掉
+            var innerText = document.getElementById("d1").innerText;
+            console.log(innerText)
+
+            //获取标签体的内容: element.innerHTML,获取标签体的内容
+            var innerHTML = document.getElementById("d1").innerHTML;
+            console.log(innerHTML)
+
+            //设置标签体的内容:建议使用innerHTML，如果是使用innerText的话它会将标签当做普通文本处理
+            document.getElementById("d1").innerHTML = "<h1>hello world</h1>"
+        </script>
+    </body>
+</html>

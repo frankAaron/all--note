@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+	
+	<script type="text/JavaScript">
+/*		var jsonObj = {"stuName":"tom","stuAge":20};
+		var jsonStr = JSON.stringify(jsonObj);
+
+		console.log(typeof jsonObj); // object
+		console.log(typeof jsonStr); // string
+*/
+		var jsonObj = {"stuName":"tom","stuAge":20};
+        var jsonStr = JSON.stringify(jsonObj);
+        jsonObj = JSON.parse(jsonStr);
+		console.log(jsonObj); // {stuName: "tom", stuAge: 20}
+
+	</script>
+</body>
+</html>
