@@ -204,7 +204,7 @@ substring  中start起始值为1
 
 ### 连接查询
 
--   内连接     交集
+-   内连接     **交集**
     -   隐式内连接   （先做笛卡尔积，过滤）
         -   select   字段列表 from 表1，表2 where  条件
     -   显式内连接  （优先，性能好  先看条件再连接）
@@ -217,5 +217,30 @@ substring  中start起始值为1
 -   自连接
     -   自己和自己连接，起别名
         -   select  __ from  表1  join 表2 on 条件
+    
+    -   联合查询
+        -   多次查询结果合并   union   / union  all 会去重
+        -   select  字段列表 from 表 a   **union**  select  字段列表 from b
 
-### 子查询
+### 子查询/ 嵌套查询
+
+selcet    from  表1where column1  = （select  column1 from 表2）
+
+-   标量子查询
+    -   返回值为单个值
+-   列子查询
+    -   返回值为一列
+        -   in
+        -   not in
+        -    any   满足一个即可
+        -   some  跟any等同
+        -   all    全满足
+-   行子查询
+    -   返回值为一行
+        -   运算符
+-   表子查询
+    -   返回值为表   in
+
+## 事务
+
+操作集合，要么同时成功，要么同时失败
