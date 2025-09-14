@@ -188,9 +188,10 @@ substring  中start起始值为1
     -   两张表的连接
     -   alter table 表名 add constraint 外键名foreign key(外键字段) referneces主表（列名）
     -   alter table 表名 dropforeign key外键名
-    -   alter table 表名 add constraint 外键名foreign key(外键字段) referneces主表（列名）on update cascade[表] on delete cascade;
-
-![](image/%E5%A4%96%E9%94%AE%E5%88%A0%E9%99%A4%E6%88%96%E8%80%85%E6%9B%B4%E6%96%B0%E7%9A%84%E8%A1%8C%E4%B8%BA.png)
+    -   ```
+        alter table 表名 add constraint 外键名foreign key(外键字段) referneces主表（列名）on update cascade[表] on delete cascade;
+        ```
+    -   ![](image/%E5%A4%96%E9%94%AE%E5%88%A0%E9%99%A4%E6%88%96%E8%80%85%E6%9B%B4%E6%96%B0%E7%9A%84%E8%A1%8C%E4%B8%BA.png)
 
 ## 多表查询
 
@@ -244,3 +245,213 @@ selcet    from  表1where column1  = （select  column1 from 表2）
 ## 事务
 
 操作集合，要么同时成功，要么同时失败
+
+### 事务操作
+
+-   设置提交方式
+
+-   ```
+    autocommit  1为自动提交，0为手动提交
+    select  @@autocommit;
+    set  @@autocommit=0;
+    ```
+
+-   提交事务
+
+-   ```
+    commit；
+    ```
+
+-   回滚事务
+
+-   ```
+     rollback
+    ```
+
+开启事务
+
+​	start transaction
+
+提交事务
+
+commit
+
+回滚事务
+
+rollback
+
+### 事务四大特性ACID
+
+-   原子性
+    -   事务不可分割，要么全部成功，要么全部失败
+-   一致性
+    -   数据一致
+-   隔离性
+    -   依赖隔离机制，事务之间不相互影响
+-   持久性
+    -   事务提交或者回滚会永久保存
+
+### 并发事务问题
+
+-   脏读
+    -   一个事务读到另一个事务没有提交的数据
+-   不可重复读
+    -   一个事务读取同一条记录，但是两次读取的数据不同
+-   幻读
+    -   一个事务按照条件查询数据，没有对应的数据行，但是插入数据时，发现数据已经存在
+
+### 隔离级别
+
+-   read uncommitted
+-   read commit
+-   repeatable read  默认
+-   serializable
+
+查看事务级别
+
+select @@transaction_isolation
+
+设置事务级别
+
+set session transaction  isolation level  隔离级别
+
+## 存储引擎
+
+### mysql体系结构
+
+![](image/mysql%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png)
+
+### 存储引擎简介
+
+存储引擎是存储数据，建立索引，更新/查询数据等技术的实现方式
+
+存储引擎是基于表的      ---表类型
+
+engine  默认innodb
+
+### 存储引擎特点
+
+#### innoDB
+
+##### 特点
+
+-   DML操作ACID模型，支持事务
+-   行级锁，提高并发访问性能
+-   支持外键约束
+
+##### 文件
+
+**.idb **  不能直接打开
+
+##### 逻辑存储结构
+
+表空间   ---    段   ---   区（1M）   ---   页（16k）   ---   行
+
+#### MyISAM
+
+##### 特点
+
+不支持事务，不支持外键
+
+支持表锁，不支持行锁
+
+访问速度快
+
+##### 文件
+
+sdi  表  ，能直接打开
+
+myd   存储数据
+
+myi   存储索引
+
+### Memory
+
+由于数据存储在内存中，由于受到硬件和断电问题，只能将这些表作为临时表或缓存使用
+
+#### 特点
+
+内存存放
+
+hash索引
+
+#### 文件
+
+sdi存储表结构信息
+
+![](image/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%8C%BA%E5%88%AB.png)
+
+### 选择
+
+ InnoDB     处理事务，并发条件下要求数据一致
+
+MyISAM	（读操作和插入操作）更新删除操作较少
+
+MEMORY	访问速度快，无法缓存在内存中，无法保证数据安全
+
+## 索引
+
+有序数据结构，高效获取数据
+
+### 优点
+
+提高数据检索的效率，降低成本
+
+降低数据排序成本，降低cpu消耗
+
+### 缺点
+
+占用磁盘空间
+
+增删改效率低
+
+### 索引结构
+
+在存储引擎层实现，默认b+tree
+
+![](image/%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84.png)
+
+### B树
+
+几阶几个指针，-1个key
+
+### B+树
+
+所有数据都出现在叶子节点
+
+### hash
+
+利用hash算法，将键值换算成hash值，映射到槽位上
+
+### 分类
+
+|   分类   |         含义         |           特点           |  关键字  |
+| :------: | :------------------: | :----------------------: | :------: |
+| 主键索引 | 根据表中主键创建索引 | 默认自动创建，只能有一个 | primary  |
+| 唯一索引 |    避免数据列重复    |        可以有多个        |  unique  |
+| 常规索引 |   快速定位特定数据   |        可以有多个        |          |
+| 全文索引 |    查找文本关键字    |        可以有多个        | fulltext |
+
+| 分类     | 含义                                         | 特点         |
+| -------- | -------------------------------------------- | ------------ |
+| 聚集索引 | 数据存储与索引在一起，叶子节点保存**行数据** | 必须只有一个 |
+| 二级索引 | 数据与索引分开，叶子节点关联主键             | 可以有多个   |
+
+#### 选取规则
+
+-   有主键   主键是聚集
+-   无主键    第一个唯一索引
+-   无主键，无唯一索引   自动生成
+
+#### 回表查询
+
+二级索引查聚集索引数据，聚集索引导出数据
+
+### 语法
+
+-   创建索引
+    -   create 关键字 index  index_name on table_name(id)  
+-   查看索引
+    -   show  index from  table_name
+-   删除索引
+    -   drop index index_name on table_name

@@ -269,8 +269,6 @@ StringBuffer  类优于  String类
 -   length返回长度
 -   toString 将其转换成字符串
 
-## 
-
 ## ArrayList集合
 
 ArrayList集合  导包 util
@@ -771,11 +769,28 @@ while (min <= max) {
 //将正则表达式封装成一个Pattern对象
 Pattern pattern = Pattern.compile(regex);
 //获取匹配器对象
-Matcher matcher = pattern.matcher(data);
+Matcher matcher = pattern.matcher(date);//date 数据
 //通过匹配器爬取信息
 while(matcher.find()){
-    System.out.println(matcher.group());
+    System.out.println(matcher.group(index));//index获取第几组数据
 }
+```
+
+![](image/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.png)
+
+```
+StringBuilder sb = new StringBuilder();
+//获取url对象
+URL url = new URL(net);
+//进行连接
+URLConnection conn = url.openConnection();
+//获取输入流
+InputStreamReader isr = new InputStreamReader(conn.getInputStream());
+int ch;
+while ((ch = isr.read()) != -1) {
+    sb.append((char) ch);
+}
+isr.close();
 ```
 
 ## data类
@@ -888,8 +903,6 @@ System.out.println(r);
 
 parse  将日期字符串转换成日期对象，日期对象转换
 
-## 递归
-
 ## 异常
 
 -   看懂异常api    帮助文档有
@@ -997,7 +1010,8 @@ parse  将日期字符串转换成日期对象，日期对象转换
     - ```java
       Collection<Student> c = new Arraylist<>();
       c.add(new Student());
-      c.iterator().var;
+      c.iterator().var;//不能写在循环里面，会重新定位导致循环不会
+      
       // c.next()  : 从集合中返回一个
       // bollean  hasNext  ：判断是否有
       while(c.hasNext()){
@@ -1016,100 +1030,99 @@ parse  将日期字符串转换成日期对象，日期对象转换
       //forearch
       c.forEach();
       ```
-
+  
   - list集合
-
+  
     - add
-
+  
       - 当存入整数是时，需要自己装箱
-
+  
       - Integer.calueOf();
-
+  
       - ```
           list.add(0,"赵六");
           ```
-
+  
       - ```
           list.add("张三");
           list.add("李四");
           list.add("王五");
           list.add("张三");
           ```
-
+  
     - remove(index)
-
+  
         - 返回删除的值
-
+  
     - set(index,string)
-
+  
         - 覆盖
-
+  
     - get(index)
-
+  
         - 返回指定索引处的元素
-
+  
   - list集合遍历
-
+  
     - LIstIterator
       - previous	逆序遍历
       - hasPrevious
     - 普通for循环
-
+  
   - LinkedList
-
+  
     - 常见方法
       - addFirst
-
+  
       - getFirst
-
+  
       - getLast()
-
+  
       - removeFirst()
-
+  
     - 双向连表，表面上是根据索引，实际上是判断
     
   - Treeset
-
+  
     - 添加节点
-
+  
       - 小的左边走
       - 大的右边走
       - 一样的不走
-
+  
     - 取出顺序
-
+  
       - 中序遍历
-
+  
     - 排序（当添加元素会自动调用compareTo）
-
+  
       - 自然排序
-
+  
         - 学生类需要继承compareTo接口，泛型为添加的类
-
+  
           - ```
             Class Student implements CompareTo<Student>{
             
             }
             ```
-
+  
           - 需要重写方法
-
+  
           ```
           public int compareTo(){
           	//return 0;	 只有第一个
           	//return 1;  正序
           	//return -1; 倒序  原因跟添加节点相关，根据返回值比较   
-          	//this - o  正序
+          	//this - o  正序     this为添加元素，o为已有元素
           	//o - this  倒序
           	int ageResult = o.age - this.age;
               int result = ageResult == 0 ? o.name.compareTo(This.name)
-          	
-          	
+          		
           }
           ```
-
+      
     - 比较排序
-
+    
       - ```
         TreeSet<Student> ts =new TreeSet<>({
         	public int compareTo(Student 01,Student o2){
@@ -1117,13 +1130,13 @@ parse  将日期字符串转换成日期对象，日期对象转换
         	}//优先比较器	
         })
         ```
-
+    
       - 不满意自比较其带类的排序规则用
-
+    
     - 去重
-
+    
   - HashSet
-
+  
     - 去重   
       - 重写equals和hashCode，先走hashCode  equals是在hashCode返回值相同时调用
     - 原理
@@ -1143,22 +1156,27 @@ parse  将日期字符串转换成日期对象，日期对象转换
                   - 链表挂在元素超过阈值8并且数组长度没有超过64
                   - 重新计算hash值
               - 链表转红黑树
+                  - 链表长度超过8，数组长度超过64
     - LInkedHashSet
       - 可以存储有序   不重复，无索引  双链表
   
 - 双列集合   map
 
-### collection工具类
+    - map.keySet()
+    - map.entrySet();
+    - 双列集合和单列集合底层类似，只不过增加value
 
-#### 可变参数, 
+## 可变参数, 
 
 可以接收多个参数
+
+只能有一个，多个参数时可变参数放后面
 
 ```
 int ...nums  //数据类型 ... 参数名
 ```
 
-#### collection
+## collection集合的工具类
 
 ```
 <T> boolean addAll(Collection<? super T>,elements);  //批量添加 TreeSet 自动去重
@@ -1170,7 +1188,7 @@ void shuffle(list<?> list)							//打乱集合
 
 ## 红黑树
 
-![](java/%E7%BA%A2%E9%BB%91%E6%A0%91%E8%A7%84%E5%88%99.png)
+![](image/%E7%BA%A2%E9%BB%91%E6%A0%91%E8%A7%84%E5%88%99.png)
 
 ## Map集合
 
@@ -1217,27 +1235,30 @@ for(Map.Entry<String,String>> entry : entrySet){
 hm.forEach((k,v) -> sout())
 ````
 
+## 创建不可变集合
+
+```
+list<String> list = list.of();
+Set<String> Set = Set.of();
+map集合只能传十个键值对，底层代码（传两个参数，可变函数不能传两个）
+map.copyOf();
+```
+
+
+
 ## stream流
 
 简化集合数组的
 
+startWith("张")；   包含返回true不包含返回false
+
 ### 获取stream流
 
-单列集合
+![](image/stream%E6%B5%81.png)
 
-.stream(s).forEach(s -> sout(s));
+注意：
 
-双列集合
-
-map.entrySet().stream
-
-数组
-
-Arrays.stream();
-
-杂数据
-
-Stream.of()
+第四个传数组时只能传引用数据类型，传基本数据类型会返回地址值
 
 ### 中间方法
 
@@ -1249,12 +1270,12 @@ list.stream().filter(s -> s.startWith()).filter(s -> s.length() == 3).forEach(s 
 
 limit  前几个元素
 
+skip跳过几个元素
+
 ```
 //取出前三个元素
-list.stream().limit(3).forEach(s -> sout(s));
+list.stream().limit(3).skip(3).forEach(s -> sout(s));
 ```
-
-skip跳过几个元素
 
 concat（Stream a, Stream b） 合并流对象
 
@@ -1262,13 +1283,32 @@ concat（Stream a, Stream b） 合并流对象
 Stream.concat(s1,s2)
 ```
 
-distinct   去重   需要重写hashCode 和equals
+distinct   去重   依赖hashCode 和equals
+
+map方法转换流中的数据类型
+
+#### 注意
+
+只能使用一次所以没有必要用一个变量去接直接链式编程
 
 ### 终结方法
 
 count
 
-forEach
+forEach遍历可以用lambda表达式
+
+toArray收集流中的数据放到数组中
+
+collect收集流中的数据，放到集合中collect（Collector.tolist）
+
+收集到map集合中不能有重复的键
+
+## 方法引用
+
+引用静态方法
+
+-   类名：：静态方法
+-   Integer：：parseInt
 
 
 
@@ -1283,7 +1323,7 @@ File(File parent chile)
 isDirectory    
 isFile
 exists
-lengrh  文件的大小  文件夹的字节大小不能用
+length  文件的大小  文件夹的字节大小不能用
 getAbsolutePath  文件绝对路径
 getName  文件名称
 lastModified   最后修改时间
@@ -1301,9 +1341,14 @@ delete 删除空文件
 
 ```
 listFiles()   返回的是下一级的File数组
+listRoot
 ```
 
 ## IO流
+
+程序写到文件
+
+### 常规流
 
 -   字节流     ---->万能流
     -   InputStream	字节输入流  
@@ -1314,20 +1359,18 @@ listFiles()   返回的是下一级的File数组
     
         - ```
           fis.read(byte[]);
+          read读一次指针指向下一个
           String 的一个构造方法(arr[],offset,len);
           ```
-    
-        -   
+        
     -   OutputStream   字节输出流
-    
-        -   
     
         -   ```
             //FileOutputStream fos = new FileOutputStream(String name/File file，true)  //true  追加
             //fos.write（byte/String.getBytes()/byte b,int off（起始索引位置）, int len）数组
             //关联文件不存在会自动创建，存在：会清空现有的，再开始写入
             ```
-    
+        
     -   关流
     
         -   ```
@@ -1366,7 +1409,21 @@ listFiles()   返回的是下一级的File数组
 
 - 编码
 
-## 加密解密
+#### 续写
+
+FileOutputStream（“  ”，true）
+
+默认是false
+
+GBK  汉字2 英文1
+
+UTF-8  汉字3 英文1
+
+乱码出现的原因
+
+编码和解码不一致
+
+### 加密解密
 
 io流    
 
@@ -1374,11 +1431,116 @@ io流
 
 解密：字节^2 ^2
 
-## 字符缓冲流
+### 字节缓冲流
 
-buffereReader
+高级流
 
-readLine
+速度更快
+
+默认长度8192  有个8k的缓冲区
+
+```
+BufferedInputStream bis = new BufferedInputStream(new FileInputStream("hashSetText"));
+BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("hashSetText"));
+```
+
+### 字符缓冲流
+
+有个16k的缓冲区
+
+```
+BufferedReader br = new BufferedReader(new FileReader("hashSetText"));
+        String s = br.readLine();
+        System.out.println(s);
+        while ((s = br.readLine()) != null) {
+            System.out.println(s);
+        }
+        br.close();
+```
+
+```
+BufferedWriter bw = new BufferedWriter(new FileWriter("hashSetText"));
+bw.write("abc");
+bw.newLine();
+bw.close();
+//清空文件默认
+```
+
+### 转换流
+
+字符流和字节流的桥梁
+
+```java
+InputStreamReader isr = new InputStreamReader(new FileInputStream(""));
+OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(""));
+```
+
+### 序列流
+
+对象
+
+```
+ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(""));
+oos.writeObject(stu)//对象  需要实现Serializable接口 没有抽象方法，标记型接口--->序列化标记
+```
+
+### 反序列流
+
+```java
+ObjectInputStream ois = new ObjectInputStream(new FileInputStream(""));
+Object o = ois.readObject();
+```
+
+transient  隐藏属性
+
+### 打印流
+
+```java
+//字节打印流默认自动刷新
+PrintStream ps = new PrintStream(new FileOutputStream(""));
+ps.println();
+ps.print();
+ps.printf("%s ")
+```
+
+```java
+//字符打印流
+PrintWriter pw = new PrintWriter(new FileWriter("  "),true);
+```
+
+### 解压缩流
+
+```java
+File src = new File("");
+File dest = new File("");
+ZipInputStream zip = new ZipInputStream(new FileInputStream(src));
+ZipEntry entry;
+while ((entry = zip.getNextEntry()) != null){
+    if (entry.isDirectory()){
+        File f = new File(dest,entry.toString());
+        f.mkdirs();
+    }else {
+        FileOutputStream fos = new FileOutputStream(new File(dest,entry.toString()));
+        int b;
+        while((b = zip.read()) != -1){
+            fos.write(b);
+        }
+        fos.close();
+        zip.closeEntry();
+    }
+}
+zip.close();
+```
+
+### Commons-io
+
+导包
+
+![](image/common-io.png)
+
+![](image/commons-io.png)
+
+
 
 ## 多线程
 
@@ -1394,6 +1556,8 @@ readLine
 
 多线程 --> 提高执行效率，处理多个任务  java默认是多线程
 
+setName
+
 Thread
 
 -   继承Thread类
@@ -1402,7 +1566,7 @@ Thread
 -   创建线程对象
 -   调用start方法    会自动调用run方法
 
-```
+```java
 public class Damo{
     public static void main(String[] args) throws ParseException {
         D1 d1 =new D1();
@@ -1432,7 +1596,7 @@ Runnable接口  扩展性强
 -   创建线程对象，将资源传入
 -   使用线程对象调用start方法
 
-```
+```java
 public class Damo{
     public static void main(String[] args) throws ParseException {
         D2 d2 =new D2();
@@ -1463,7 +1627,7 @@ Callable
 -   传入线程任务
 -   调用start方法
 
-```
+```java
 public class Damo{
     public static void main(String[] args) throws Exception {
         D3 d3 = new D3();
@@ -1491,15 +1655,7 @@ class D3 implements Callable<Integer>{
 }
 ```
 
-```
-String getName() 获取线程
-void  setName()  设置线程名称
-Thread.currentThread().getName()
-void sleep  休眠
-setPriority(1~10)设置线程的优先级  使得线程更容易抢到线程优先完成  默认是5
-getPriority
-setDaemon(true)守护线程
-```
+![](image/%E7%BA%BF%E7%A8%8B%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95.png)
 
 抢占式调度	随即
 
@@ -1552,7 +1708,7 @@ signal
 
 生命周期
 
-![](java/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
+![](image/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
 
 线程池
 
@@ -1577,7 +1733,7 @@ ExecutorService pool = Executors.newFixedThreadPool();  //传参数指定线程�
 
 自定义线程池
 
-![](java/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E5%AF%B9%E8%B1%A1%E5%8F%82%E6%95%B0.png)
+![](image/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E5%AF%B9%E8%B1%A1%E5%8F%82%E6%95%B0.png)
 
 ```
 //有界 new ArrayBlockingQueue<>()
@@ -1613,7 +1769,7 @@ for (int i = 0; i <= 13 ; i++) {
 
 消耗资源过多
 
-![](java/%E5%BB%B6%E8%BF%9F%EF%BC%88%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%89.png)
+![]()
 
 ## 泛型
 
@@ -1667,7 +1823,11 @@ interface Inter<E>{
 
 
 
+## 二叉树
 
+小的存左边
+
+大的存右边
 
 ## 注意
 
