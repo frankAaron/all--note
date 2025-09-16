@@ -1657,6 +1657,12 @@ class D3 implements Callable<Integer>{
 
 ![](image/%E7%BA%BF%E7%A8%8B%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95.png)
 
+设置优先级（1，5默认，10）  越高概率越高
+
+守护线程：  非守护线程结束，守护线程结束（不是立刻结束）
+
+
+
 抢占式调度	随即
 
 非抢占式调度  轮流
@@ -1676,19 +1682,23 @@ synchronized(任意对象,最好使用类对象的字节码--->是同一把锁){
 同步方法的所对象
 
 - 非静态方法   this
-- 静态方法   本类的字节码对象
+- 静态方法   本类的字节码对象   一般
 
 lock  
 
 - 互斥锁    
 
-  - ```
+  - ```java
     ReentrantLock lock = new ReentrantLock();
+    static Lock lock = new ReentrantLock();
     lock.lock()
-    lock.unlock() 
-    ```
+    lock.unlock()
 
-  - 
+### 阻塞队列
+
+![](image/%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97.png)
+
+一般在主方法中实现，多线程必须使用一个
 
 ### 线程通信
 
@@ -1716,7 +1726,7 @@ signal
 
 自带线程池（一般不用）
 
-```
+```java
 ExecutorService pool = Executors.newCachedThreadPool();  //线程对象多
 //submit 提交线程
 pool.submit(new Runnable() {
@@ -1727,11 +1737,11 @@ pool.submit(new Runnable() {
 });
 pool.shutdown();
 
-
-ExecutorService pool = Executors.newFixedThreadPool();  //传参数指定线程对象
+ExecutorService executorService = Executors.newFixedThreadPool();
+executorService.submit(Main::new);
 ```
 
-自定义线程池
+### 自定义线程池
 
 ![](image/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E5%AF%B9%E8%B1%A1%E5%8F%82%E6%95%B0.png)
 
@@ -1763,13 +1773,118 @@ for (int i = 0; i <= 13 ; i++) {
 
 自定义线程池拒绝策略
 
-![](java/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5.png)
+### 线程池大小
 
-### 单例设计模式
+![](image/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%A7%E5%B0%8F.png)
 
-消耗资源过多
+## 网络编程
 
-![]()
+计算机和计算机通过网络jin'xin
+
+常见的软件架构
+
+c/s ：客户端/服务器       服务端和客户端都要开发，用户下载麻烦
+
+b/s：浏览器/服务器      画质低   
+
+### 三要素
+
+-   ip
+    -   ipcofig  查看ip
+    -   ping			
+
+-   端口号   设备中的唯一标识
+
+-   协议     传输规则
+
+InetAddress.getByName()  获取IP地址
+
+### 端口号
+
+0-1023之间的端口号用于一些知名的网络服务或者应用
+
+只能被一个应用程序占用
+
+### 协议 
+
+![](image/%E5%8D%8F%E8%AE%AE.png)
+
+### UDP协议  
+
+面向无连接（不管连接是否成功）的通信协议
+
+速度快，大小有限制且不安全
+
+//网络会议，聊天，数据丢失不影响
+
+udp发送数据
+
+![udp发送数据](image/UDP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE.png)
+
+udp接受数据
+
+![](image/UDP%E6%8E%A5%E5%8F%97%E6%95%B0%E6%8D%AE.png)
+
+单播多播广播
+
+MulticastSocket ms = new MulticastSocket();
+
+### TCP协议
+
+面向连接,连接建立后通过Socket产生IO流进行网络通信
+
+速度慢，无大小限制，数据安全
+
+//发消息
+
+![](image/TCP%E9%80%9A%E4%BF%A1%E9%A1%BA%E5%BA%8F.png)
+
+### 三次握手
+
+![](image/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png)
+
+### 四次挥手
+
+![](image/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png)
+
+
+
+## 反射
+
+允许对成员变量，成员方法和构造方法的信息进行编程访问
+
+### 获取class对象
+
+```java
+//常用
+Class.forName("全类名");
+//参数传递--> 锁
+类名.class;
+//有对象，
+对象.getClass();
+```
+
+### 获取构造方法  					 Constructor
+
+![](image/%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95.png)
+
+modifiers()   获取权限修饰符    
+
+![](image/%E5%8F%8D%E5%B0%84%E5%B8%B8%E9%87%8F%E5%80%BC.png)
+
+getParameter()   -- >获取构造方法的每一个参数
+
+setAccessible（）  临时取消权限
+
+newInstance（）
+
+### 获取字段（成员变量）  Filed
+
+![](image/%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F.png)
+
+### 获取成员方法					Method
+
+![](image/%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95.png)
 
 ## 泛型
 
