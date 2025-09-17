@@ -347,6 +347,8 @@ engine  默认innodb
 
 表空间   ---    段   ---   区（1M）   ---   页（16k）   ---   行
 
+![](image/InnoDB%E9%80%BB%E8%BE%91%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png)
+
 #### MyISAM
 
 ##### 特点
@@ -365,7 +367,7 @@ myd   存储数据
 
 myi   存储索引
 
-### Memory
+#### Memory
 
 由于数据存储在内存中，由于受到硬件和断电问题，只能将这些表作为临时表或缓存使用
 
@@ -415,13 +417,19 @@ MEMORY	访问速度快，无法缓存在内存中，无法保证数据安全
 
 几阶几个指针，-1个key
 
+![](image/b%E6%A0%91.png)
+
 ### B+树
 
-所有数据都出现在叶子节点
+所有数据都出现在叶子节点（单项链表），非叶子节点起到索引作用
+
+![](image/b+%E6%A0%91.png)
 
 ### hash
 
 利用hash算法，将键值换算成hash值，映射到槽位上
+
+![](image/InnoDB%E4%BD%BF%E7%94%A8B+.png)
 
 ### 分类
 
@@ -450,8 +458,177 @@ MEMORY	访问速度快，无法缓存在内存中，无法保证数据安全
 ### 语法
 
 -   创建索引
-    -   create 关键字 index  index_name on table_name(id)  
+    -   create 关键字 index  index_name on table_name(id,...联合索引)  
 -   查看索引
     -   show  index from  table_name
 -   删除索引
     -   drop index index_name on table_name
+
+### SQL性能分析
+
+#### SQL执行频率
+
+show [session |   global ] status  (like)   增删改查
+
+#### 慢查询日志
+
+记录表所有执行时间超过默认10秒的所有SQL语句日志
+
+show  variables  like 'slow_query_log'   查看是否开启
+
+>   **/etc/my.cnf**
+
+slow_query_log = 1 开启慢查询
+
+long_query_time=2   SQL语句执行时间
+
+#### profile
+
+select  @@have_profiling; 看到是否支持profile操作
+
+select @@profiling  查看是否开启
+
+set  profiling = 1    打开开关
+
+show  profiles;
+
+show  profiles (cpu) for query query_id
+
+#### explain执行计划
+
+位于DML之前
+
+explain  select  ……
+
+-   id
+    -   执行select子句或者操作表的顺序  id相同，执行顺序从上到下，id不同，值越大，越先执行
+-   select_type
+    -   表示slect类型
+-   type
+    -   连接类型，性能由好到坏（NULL不经过表、system、const、eq_ref、range、index、all  全表扫描）
+-   possible_key
+    -   可能用到的索引
+-   Key
+    -   实际使用索引，如果为NULL，没有使用索引
+-   Key_len
+    -   索引中使用的字节数
+-   rows
+    -   必须要执行的查询的函数，不准确
+-   filtered
+    -   返回结果的行数占需求读取函数的百分比
+
+### 索引使用
+
+#### 最左前缀法则
+
+查询从索引的最左列开始，并且不跳过索引中的列，如果跳过某一列，**索引将部分失效（后面的索引失效）**
+
+例如：（abc）
+
+建立这样的索引相当于建立了索引a、ab、abc三个索引
+
+#### 范围查询
+
+联合索引中，出现范围查询（<，>），范围查询右侧的列索引失效
+
+#### 索引列运算
+
+在索引列上进行运算操作，索引将失效
+
+#### 字符串不加引号
+
+字符串类型字段使用时不加引号，索引失效
+
+#### 模糊查询
+
+尾部模糊，索引不失效，头部模糊将失效
+
+#### or连接的条件
+
+用or分开，如果or前的条件中的列有索引，后面的列中没有索引，那么涉及的索引都不会被用到（只要有一侧没有就么没有）
+
+#### 数据分布影响
+
+如果MySQL评估使用索引比全表满，则不适用索引------->回表查询也需要时间，所以不走索引
+
+#### SQL提示
+
+在SQL语句中加入认为提示达到优化目的
+
+当一个字段既有联合索引又有单独索引sql默认用联合索引
+
+use index;    	//告诉数据库用  （建议）---->mysql评估速度
+
+```mysql
+EXPLAIN SELECT * FROM TB_USER USE INDEX() WHERE 
+```
+
+ignore index;   //告诉数据库不用
+
+```mysql
+EXPLAIN SELECT * FROM TB_USER IGNORE INDEX() WHERE 
+```
+
+force index		//高速数据库必须用
+
+```mysql
+EXPLAIN SELECT * FROM TB_USER FORCE INDEX() WHERE 
+```
+
+#### 覆盖索引
+
+查询使用索引，并且需要返回的列----> 在该索引中已经全部能找到，减少select  \* 
+
+using  index condition   查找使用索引，需要回表查询
+
+using where ；using index ：查找使用索引，需要的数据在索引中能找到，不需要回表查询
+
+#### 前缀索引
+
+![](image/%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95.png)
+
+#### 单列索引与联合索引
+
+单列索引：一个索引只包含单个列
+
+联合索引：一个索引包括多个列
+
+### 索引设计原则
+
+1.  针对于数据量较大，且查询比较频繁的表建立索引
+2.  针对常作为查询条件，排序，分组操作的字段建立索引
+3.  尽量选择区分度高的列作为索引，尽量建立唯一索引，区分度高，使用索引的效率高
+4.  字符串类型的字段，字段的长度较长，可以针对于字段的特点，建立前缀索引
+5.  尽量使用联合索引，减少单列索引，查询时，联合索引可以覆盖索引，节省存储空间，避免回表查询，
+6.  控制索引的数量，索引并不是多多益善，索引越多，维护索引结构的代价也就越大，影响增删改查
+7.  如果索引列不能存储NULL值，请在创建表时使用NOT NULL约束。当优化器知道每列是否包含NULL值时，它可以更好的确定哪个索引最有效的用于查询
+
+## SQL优化
+
+### 插入数据
+
+#### insert优化
+
+![](image/insert%E4%BC%98%E5%8C%96.png)
+
+#### 大批量插入数据
+
+如果一次性插入大批量数据可以是使用load指令进行插入
+
+mysql --local-infile -u root -p //客户端连接服务器，加上参数
+
+set global local_infile =1   //设置全局参数为1，开启从本地加载文件导入数据的开关
+
+load data local infile '/root/sql1.log' into table 'tb_user' fields terminated by ',' lines terminated by '\n'		//执行load指令将准备好的数据，加载到表结构中
+
+### 主键优化
+
+#### 数据组织方式
+
+在InnoDB储存引擎中，表数据都是根据主键顺序组织存放，这种存储方式称为索引组织表
+
+#### 页分裂
+
+页可以为空，也可以填充一半，也可填充100%，每个页包含2-N行数据（如果一行数据多大，会溢出），根据主键排列
+
+![](image/%E9%A1%B5%E5%88%86%E8%A3%82.png)
