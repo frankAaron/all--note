@@ -496,7 +496,7 @@ show  profiles (cpu) for query query_id
 
 #### explain执行计划
 
-位于DML之前
+位于DQL之前
 
 explain  select  ……
 
@@ -632,3 +632,263 @@ load data local infile '/root/sql1.log' into table 'tb_user' fields terminated b
 页可以为空，也可以填充一半，也可填充100%，每个页包含2-N行数据（如果一行数据多大，会溢出），根据主键排列
 
 ![](image/%E9%A1%B5%E5%88%86%E8%A3%82.png)
+
+#### 页合并
+
+当删除一行记录时，实际上记录并没有被物理删除，只是记录被标记为删除并且它的空间变得允许被其他记录声明使用。当页中删除的记录达到MERGE_THRSHOLD（默认为页的50%），开启合并
+
+MERGE_THRSHOLD：可以自己设置，在创建表或索引时指定
+
+#### 主键设计原则
+
+降低主键长度
+
+### order by优化
+
+Using     filesort：通过表达索引或全表扫描，读取满足条件的数据行，在排序缓冲区sort buffer完成排序操作，所有通过索引直接返回排序结果的排序都叫FileSort排序
+
+Using 	index 通过有序索引顺序扫面直接返回有序数据，即为using index 不需要额外排序，操作效率高。联合索引可以提高其性能
+
+创建索引create  index  —— from ——by  age asc,phone desc
+
+### group by 优化
+
+Using temporary
+
+Using  index
+
+满足最左前缀
+
+### limit优化
+
+通过覆盖索引和子查询（查询id来进行优化）来优化
+
+### count优化
+
+自己计数
+
+MyISAM   表的总行数记录在磁盘上，直接返回个数
+
+InnoDB     一行一行从引擎读
+
+![](image/count%E4%BC%98%E5%8C%96.png)
+
+### update优化
+
+更新索引尽量选择id（有索引不能失效）作为条件 ----> 行锁
+
+否则是表锁
+
+## 视图与存储过程
+
+### 视图
+
+虚拟存在的表，数据并不在数据库中
+
+#### 语法
+
+```mysql
+create (or repleace) view 视图名 as DQL语句 with cascaded(local) check option #创建视图
+show create view 视图名 #查询创建视图的语句
+SELECT * FROM 视图名 
+create or repleace view 视图名 as DQL语句   #修改视图
+alter view view_name as DQL语句  #修改视图
+drop view if exists view_name  #删除视图
+```
+
+向视图插入数据，数据在基表中
+
+cascaded：向前一直检查并校验是否符合条件
+
+![](image/cascaded.png)
+
+local只负责当前语句会往前递归调查有没有检查选项，如果没有就不校验，有就检查
+
+#### 视图更新条件
+
+视图中的行对应基表的一行数据才能更新
+
+如果使用聚合函数，窗口函数，distinct，group by，having，union /union all不可更新
+
+#### 作用
+
+-   对视图进行操作来减少操作
+
+-   安全，可以控制什么可以看见
+-   数据独立，屏蔽基表对数据的影响
+
+### 存储过程
+
+是事先经过编译并存储在数据库中的SQL语句集合，调用存储过程可以简化应用开发人员的很多工作，减少数据在数据库和应用服务器之间的传输，对于提高数据处理的效率有好处
+
+#### 特点
+
+SQL语句的封装与重用
+
+可以接受参数，返回数据 ---> 函数？
+
+减少网络交互，提高效率
+
+#### 语法
+
+创建
+
+```mysql
+create procedure name()
+begin
+	SQL语句
+end;
+```
+
+调用
+
+```mysql
+call name();
+```
+
+查看
+
+```mysql
+show create procedure name  #查看定义语句
+select * from information_schema.routines where routine_schema='xxx';
+```
+
+删除
+
+```mysql
+drop  procedure [if exists] name;
+```
+
+delimiter  设置结束符
+
+#### 变量
+
+##### 系统变量：
+
+会话变量，全局变量
+
+```mysql
+show [session | global] variables like '';
+select @@____准确符号  查看指定
+```
+
+设置系统变量
+
+```mysql
+set session  variables_name  __; 
+set @@variables_name = __;
+```
+
+如果没有指定session/global ，默认session，会话变量
+
+mysql服务器重启之后，所有的全局参数会失效，可以在/etc/my.cnf
+
+##### 用户自定义变量
+
+@变量名
+
+```mysql
+set @var_name := __;
+set @var_name := __,@var_name=__;
+select @var_name := __;
+select count(*) into @var_name from tab_name;
+```
+
+使用变量
+
+```mysql
+select  @var_name;
+```
+
+##### 局部变量
+
+位于begin...end 中，访问之前需要declare声明。
+
+声明
+
+```mysql
+declare stu_count int default 0;
+select count(*) into stu_count from student;
+select stu_count:=;
+```
+
+##### if
+
+语法:
+
+```mysql
+if ... then ...
+elseif ... then ...
+else ...
+end if;
+```
+
+##### 参数
+
+in	参数为输入，调用传参  默认
+
+out	参数作为返回值
+
+inout	既可以作为输入，也可以作为输出
+
+```mysql
+create procedure name(in/out/inout a a_type)
+begin
+	SQL语句
+end;
+```
+
+##### case
+
+```mysql
+case
+	when ...条件... then  ....
+	else  ...
+end case;
+```
+
+##### while
+
+```mysql
+while 条件 do
+	...
+end while;
+```
+
+##### repeat
+
+```mysql
+repeat
+	sql
+	until 条件
+end repeat;
+```
+
+##### loop
+
+```mysql
+[begin_name]:loop
+	
+end loop [end_name]
+```
+
+leave label	----->	break
+
+iterate label	----->	continue
+
+##### 游标 cursor
+
+语法
+
+```mysql
+declare name cursor for DQL;
+open name;
+fetch name into var_name;
+close name;
+```
+
+##### 条件处理程序
+
+语法
+
+![](image/%E6%9D%A1%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E8%AF%AD%E6%B3%95.png)
