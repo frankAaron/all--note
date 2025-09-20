@@ -474,7 +474,7 @@ show [session |   global ] status  (like)   增删改查
 
 记录表所有执行时间超过默认10秒的所有SQL语句日志
 
-show  variables  like 'slow_query_log'   查看是否开启
+**show  variables  like** 'slow_query_log'   查看是否开启
 
 >   **/etc/my.cnf**
 
@@ -887,8 +887,231 @@ fetch name into var_name;
 close name;
 ```
 
+```mysql
+create procedure p1(in uage int)
+begin
+    declare uname varchar(100);
+    declare upro varchar(100);
+    declare u_cursor cursor for select name,profession from student where age<=uage;
+
+    drop table if exists tb_user_pro;
+    create table if not exists tb_user_pro(
+        id int primary key auto_increment,
+        name varchar(100),
+        profession varchar(100)
+    );
+    open u_cursor;
+    while true do
+        fetch u_cursor into uname,upro;
+        insert into tb_user_pro values (null,uname,upro);
+    end while;
+    close u_cursor;
+end;
+```
+
 ##### 条件处理程序
+
+上述代码会进行报错
 
 语法
 
 ![](image/%E6%9D%A1%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E8%AF%AD%E6%B3%95.png)
+
+```
+declare exit handler for SQLSTATE '02000' close u_cursor;
+```
+
+### 存储函数
+
+存储函数是由返回值的存储过程，参数只能是in类型；
+
+![](image/%E5%AD%98%E5%82%A8%E5%87%BD%E6%95%B0%E8%AF%AD%E6%B3%95.png)
+
+### 触发器
+
+与表有关的数据库对象，在insert/update/delete之前和之后，出发并执行触发器中定义的sql语句集合/可以协助应用在数据端确保数据完整性
+
+行级触发器--->影响几行就触发几次
+
+![](image/%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%8B%E7%BB%8D.png)
+
+```mysql
+create trigger trigger_name
+before/ after  insert/ update/ delete
+on tbl_name for each row
+begin
+trigger_stmt;
+end;
+```
+
+查看
+
+```mysql
+show triggers;
+```
+
+删除
+
+```mysql
+drop trigger [schema_name] trigger_name; #默认当前数据库
+```
+
+
+
+## 锁
+
+### 全局锁
+
+数据库中的所有表，只能读，全库逻辑备份，
+
+语法
+
+```mysql
+flush tables with read lock;
+# windows下使用  （不加锁）-|
+mysqldump （--single-transaction） -h hostip -u root -p ... table_name> save_name.sql
+unlock tables;
+```
+
+
+
+### 表级锁
+
+锁整张表
+
+##### 表锁
+
+表共享读
+
+表独自写
+
+```mysql
+lock tables tab_name read/ write # 加写锁的客户端可以写，其他客户端不能读也不能写   读锁都可以读
+unlock tables # 客户端断开连接
+```
+
+##### 元数据锁
+
+系统自己控制，维护数据一致性，防止不可重复读，**避免DML和DDL冲突，保证读写的正确性**
+
+![](image/%E5%85%83%E6%95%B0%E6%8D%AE%E9%94%81.png)
+
+```mysql
+select object_type,object_schema,object_name,lock_type,lock_duration from performance_schema.metadata_lo
+```
+
+##### 意向锁
+
+避免DML执行时，加的行锁与表锁的冲突--->减少表锁检查每行数据是否加锁，
+
+### 行级锁
+
+一整行，锁定粒度最小，发生锁冲突的概率低，并发最高
+
+InnoDB的数据时基于索引组织的   聚集索引，二级索引
+
+![](image/%E8%A1%8C%E9%94%81.png)
+
+没有索引则会加入表锁
+
+## InnoDB引擎
+
+### 逻辑存储结构
+
+表段区页行
+
+表空间 ---->.idb结尾       存储记录、索引等数据
+
+段---->数据段（索引叶子节点），索引段（索引非叶子节点），回滚段。段管理多个区
+
+区 ---->默认1M，表空间的单元结构，一个区有64个页
+
+页 ---->默认16k ，每次申请5-6个区
+
+行----> 存放数据，Trx_id记录改动时，找到对应的id Roll_pointer记录修改前的信息，找到修改前的信息
+
+### 架构
+
+#### 内存结构
+
+Buffer_Pool
+
+![](image/Buffer_Pool.png)
+
+change Buffer
+
+![](image/change_buffer.png)
+
+自适应hash
+
+![](image/%E8%87%AA%E9%80%82%E5%BA%94hash.png)
+
+log_buffer
+
+![](image/log_buffer.png)
+
+#### 磁盘结构
+
+### 事务原理
+
+原子性，一致性，持久性    ---->redo  /undo log（原子性）
+
+隔离性 ---->MVCC,锁
+
+##### redo log
+
+持久性
+
+redo log buffer        记录数据页的物理变化
+
+redo log file			恢复数据
+
+##### undo log
+
+数据回滚，是否涉及多版本控制
+
+### MVCC
+
+当前读
+
+快照读
+
+![](image/%E9%9A%90%E8%97%8F%E5%AD%97%E6%AE%B5.png)
+
+ibdsdi   .idb
+
+readview     trx_id    
+
+![](image/readview.png)
+
+## Mysql数据库管理
+
+![](image/mysql%E8%87%AA%E5%B8%A6%E6%95%B0%E6%8D%AE%E5%BA%93.png)
+
+mysqladmin ---> 管理工具
+
+mysqlbinlog --->二进制日志查看工具
+
+mysqlshow --->查看数据库、表、字段的统计信息
+
+mysqldump --->数据备份工具
+
+mysqlimport --->数据导入
+
+## 日志
+
+### 错误日志
+
+/var/log   mysqld.log
+
+### 二进制日志
+
+记录DML和DDL
+
+![](image/%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F.png)
+
+## 注
+
+concat ---字符串拼接
+
+mvcc
