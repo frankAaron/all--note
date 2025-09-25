@@ -2,7 +2,7 @@
 
 ```
 net start mysql80
-net stop mysql80
+    net stop mysql80
 mysql -u root -p
 ```
 
@@ -1108,7 +1108,66 @@ mysqlimport --->数据导入
 
 记录DML和DDL
 
+mysqlbinlog  -d 数据库名 -v 将数据重构为sql语句
+
+/etc/my.cnf
+
 ![](image/%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F.png)
+
+日志删除
+
+![](image/%E6%97%A5%E5%BF%97%E5%88%A0%E9%99%A4.png)
+
+### 查询日志
+
+记录增删改查
+
+### 慢查询日志
+
+slow_query_log =1  
+
+long_query_time = 2
+
+## 主从复制
+
+主数据库的DDL和DML通过二进制日志传到从库服务器中，可以在从库上执行
+
+特点：
+
+1.  主数据库出现问题，可以快速切换
+2.  读写分离，降低主库 的访问压力
+3.  执行备份，避免影响主库服务
+
+### 原理
+
+![](image/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86.png)
+
+### 搭建
+
+主库配置
+
+修改  /etc/my.cnf
+
+## 分库分表
+
+拆分策略
+
+-   垂直拆分
+-   水平拆分
+
+### mycat
+
+数据库分库分表的中间件，不用调整代码即可实现分库分表
+
+。。。
+
+## 读写分离
+
+写走主库，读走从库
+
+### 一主一从
+
+基于mysql中的binlog实现
 
 ## 注
 
